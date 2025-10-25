@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>God Mirror Widget</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .widget-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .widget-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .widget-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e1b4b;
+            margin-bottom: 8px;
+        }
+        
+        .widget-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .question-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .question-label {
+            font-size: 20px;
+            font-weight: 600;
+            color: #312e81;
+            white-space: nowrap;
+        }
+        
+        .answer-input {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px 16px;
+            font-size: 18px;
+            border: 2px solid #8b5cf6;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .answer-input:focus {
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+        
+        .answer-input::placeholder {
+            color: #9ca3af;
+            font-style: italic;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #1e1b4b;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e7eb;
+            border-color: #d1d5db;
+        }
+        
+        .saved-message {
+            background: #10b981;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 16px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .saved-message.show {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .info-text {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 13px;
+            color: #6b7280;
+            text-align: center;
+        }
+        
+        @media (max-width: 480px) {
+            .widget-container {
+                padding: 24px;
+            }
+            
+            .question-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .question-label {
+                font-size: 18px;
+            }
+            
+            .answer-input {
+                width: 100%;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="widget-container">
+        <div class="widget-header">
+            <div class="widget-title">✨ The 7-Day God Mirror</div>
+            <div class="widget-subtitle">Answer honestly. Just one word.</div>
+        </div>
+        
+        <div class="question-container">
+            <span class="question-label">God is</span>
+            <input 
+                type="text" 
+                id="godAnswer" 
+                class="answer-input" 
+                placeholder="your answer..."
+                maxlength="50"
+            >
+        </div>
+        
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="saveAnswer()">
+                💾 Save Answer
+            </button>
+            <a 
+                href="https://bthornemail.github.io/god-is-word/" 
+                target="_blank"
+                class="btn btn-secondary"
+            >
+                📊 View Full App
+            </a>
+        </div>
+        
+        <div id="savedMessage" class="saved-message">
+            ✓ Your answer has been saved locally!
+        </div>
+        
+        <div class="info-text">
+            Your answer is saved only on your device.<br>
+            Complete all 7 days in the full app to see patterns.
+        </div>
+    </div>
+
+    <script>
+        function saveAnswer() {
+            const input = document.getElementById('godAnswer');
+            const message = document.getElementById('savedMessage');
+            const answer = input.value.trim();
+            
+            if (!answer) {
+                alert('Please enter an answer first');
+                return;
+            }
+            
+            // Get existing quick answers
+            let quickAnswers = JSON.parse(localStorage.getItem('god_quick_answers') || '[]');
+            
+            // Add new answer with timestamp
+            quickAnswers.push({
+                word: answer,
+                timestamp: new Date().toISOString(),
+                source: 'widget'
+            });
+            
+            // Save to localStorage
+            localStorage.setItem('god_quick_answers', JSON.stringify(quickAnswers));
+            
+            // Show success message
+            message.classList.add('show');
+            
+            // Clear input
+            input.value = '';
+            
+            // Hide message after 3 seconds
+            setTimeout(() => {
+                message.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Allow Enter key to submit
+        document.getElementById('godAnswer').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                saveAnswer();
+            }
+        });
+    </script>
+</body>
+</html>
