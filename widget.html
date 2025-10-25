@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>God Mirror Widget</title>
+    <title>The 7-Day God Mirror</title>
     <style>
         * {
             margin: 0;
@@ -12,138 +12,150 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px;
         }
         
-        .widget-container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 32px;
-            max-width: 500px;
+        .widget {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 480px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
         
-        .widget-header {
+        .header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
-        .widget-title {
-            font-size: 24px;
+        .title {
+            font-size: 22px;
             font-weight: 700;
             color: #1e1b4b;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
-        .widget-subtitle {
-            font-size: 14px;
+        .subtitle {
+            font-size: 13px;
             color: #6b7280;
         }
         
-        .question-container {
+        .question {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
         }
         
-        .question-label {
-            font-size: 20px;
+        .label {
+            font-size: 18px;
             font-weight: 600;
             color: #312e81;
             white-space: nowrap;
         }
         
-        .answer-input {
+        .input {
             flex: 1;
-            min-width: 150px;
-            padding: 12px 16px;
-            font-size: 18px;
+            padding: 10px 14px;
+            font-size: 16px;
             border: 2px solid #8b5cf6;
             border-radius: 8px;
             outline: none;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
         
-        .answer-input:focus {
+        .input:focus {
             border-color: #7c3aed;
             box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
         }
         
-        .answer-input::placeholder {
+        .input::placeholder {
             color: #9ca3af;
             font-style: italic;
         }
         
-        .button-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
         }
         
         .btn {
-            flex: 1;
-            min-width: 140px;
-            padding: 14px 24px;
-            font-size: 16px;
+            padding: 10px 16px;
+            font-size: 14px;
             font-weight: 600;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             text-decoration: none;
         }
         
         .btn-primary {
             background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
             color: white;
+            grid-column: span 2;
         }
         
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
-        }
-        
-        .btn-primary:active {
-            transform: translateY(0);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
         }
         
         .btn-secondary {
             background: #f3f4f6;
             color: #1e1b4b;
-            border: 2px solid #e5e7eb;
+            border: 1px solid #e5e7eb;
         }
         
         .btn-secondary:hover {
             background: #e5e7eb;
-            border-color: #d1d5db;
         }
         
-        .saved-message {
+        .message {
             background: #10b981;
             color: white;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 10px;
+            border-radius: 6px;
             text-align: center;
-            margin-top: 16px;
+            font-size: 14px;
+            margin-bottom: 12px;
             display: none;
-            animation: fadeIn 0.3s ease;
         }
         
-        .saved-message.show {
+        .message.show {
             display: block;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .info {
+            padding-top: 12px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 12px;
+            color: #6b7280;
+            text-align: center;
+            line-height: 1.5;
         }
         
         .modal {
@@ -153,23 +165,28 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            animation: fadeIn 0.3s ease;
+            padding: 16px;
         }
         
         .modal.show {
             display: flex;
+            animation: fadeIn 0.2s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .modal-content {
             background: white;
             border-radius: 12px;
             width: 100%;
-            max-width: 600px;
+            max-width: 500px;
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
@@ -179,25 +196,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 24px;
+            padding: 16px 20px;
             border-bottom: 1px solid #e5e7eb;
         }
         
-        .modal-header h3 {
-            font-size: 20px;
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
             color: #1e1b4b;
-            margin: 0;
         }
         
         .modal-close {
             background: none;
             border: none;
-            font-size: 28px;
+            font-size: 24px;
             color: #6b7280;
             cursor: pointer;
             padding: 0;
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -211,158 +228,133 @@
         }
         
         .modal-body {
-            padding: 24px;
+            padding: 20px;
         }
         
-        .embed-textarea {
+        .modal-text {
+            margin-bottom: 12px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+        
+        .textarea {
             width: 100%;
-            height: 180px;
-            padding: 12px;
+            height: 140px;
+            padding: 10px;
             font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 12px;
+            font-size: 11px;
             border: 2px solid #e5e7eb;
-            border-radius: 8px;
+            border-radius: 6px;
             resize: vertical;
             background: #f9fafb;
             color: #1e1b4b;
+            line-height: 1.4;
         }
         
-        .embed-textarea:focus {
+        .textarea:focus {
             outline: none;
             border-color: #8b5cf6;
         }
         
-        .copy-message {
-            background: #10b981;
-            color: white;
-            padding: 8px;
-            border-radius: 6px;
-            text-align: center;
-            margin-top: 12px;
-            display: none;
-            font-size: 14px;
-        }
-        
-        .copy-message.show {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .info-text {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #e5e7eb;
-            font-size: 13px;
-            color: #6b7280;
-            text-align: center;
-        }
-        
         @media (max-width: 480px) {
-            .widget-container {
-                padding: 24px;
+            .widget {
+                padding: 20px;
             }
             
-            .question-container {
+            .question {
                 flex-direction: column;
                 align-items: stretch;
+                gap: 6px;
             }
             
-            .question-label {
-                font-size: 18px;
+            .label {
+                font-size: 16px;
             }
             
-            .answer-input {
-                width: 100%;
+            .buttons {
+                grid-template-columns: 1fr;
             }
             
-            .button-group {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
+            .btn-primary {
+                grid-column: span 1;
             }
         }
     </style>
 </head>
 <body>
-    <div class="widget-container">
-        <div class="widget-header">
-            <div class="widget-title">✨ The 7-Day God Mirror</div>
-            <div class="widget-subtitle">Answer honestly. Just one word.</div>
+    <div class="widget">
+        <div class="header">
+            <div class="title">
+                <span>✨</span>
+                The 7-Day God Mirror
+            </div>
+            <div class="subtitle">Answer honestly. Just one word.</div>
         </div>
         
-        <div class="question-container">
-            <span class="question-label">God is</span>
+        <div class="question">
+            <span class="label">God is</span>
             <input 
                 type="text" 
                 id="godAnswer" 
-                class="answer-input" 
+                class="input" 
                 placeholder="your answer..."
                 maxlength="50"
             >
         </div>
         
-        <div class="button-group">
+        <div id="savedMessage" class="message">
+            ✓ Saved to your device!
+        </div>
+        
+        <div class="buttons">
             <button class="btn btn-primary" onclick="saveAnswer()">
                 💾 Save Answer
+            </button>
+            <button class="btn btn-secondary" onclick="shareAnswer()">
+                🔗 Share
+            </button>
+            <button class="btn btn-secondary" onclick="showEmbed()">
+                📋 Embed
             </button>
             <a 
                 href="https://bthornemail.github.io/god-is-word/" 
                 target="_blank"
                 class="btn btn-secondary"
+                style="grid-column: span 2;"
             >
                 📊 View Full App
             </a>
         </div>
         
-        <div class="button-group" style="margin-top: 12px;">
-            <button class="btn btn-secondary" onclick="shareAnswer()">
-                🔗 Share
-            </button>
-            <button class="btn btn-secondary" onclick="showEmbed()">
-                📋 Embed Code
-            </button>
-        </div>
-        
-        <div id="savedMessage" class="saved-message">
-            ✓ Your answer has been saved locally!
-        </div>
-        
-        <div id="embedModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Embed This Widget</h3>
-                    <button class="modal-close" onclick="closeEmbed()">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p style="margin-bottom: 12px; color: #6b7280; font-size: 14px;">
-                        Copy and paste this code into your website:
-                    </p>
-                    <textarea 
-                        id="embedCode" 
-                        class="embed-textarea"
-                        readonly
-                        onclick="this.select()"
-                    ></textarea>
-                    <button class="btn btn-primary" style="width: 100%; margin-top: 12px;" onclick="copyEmbed()">
-                        📋 Copy to Clipboard
-                    </button>
-                    <div id="copyMessage" class="copy-message">
-                        ✓ Copied!
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="info-text">
+        <div class="info">
             Your answer is saved only on your device.<br>
             Complete all 7 days in the full app to see patterns.
+        </div>
+    </div>
+
+    <div id="embedModal" class="modal" onclick="if(event.target===this) closeEmbed()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Embed This Widget</div>
+                <button class="modal-close" onclick="closeEmbed()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-text">
+                    Copy and paste this code into your website:
+                </p>
+                <textarea 
+                    id="embedCode" 
+                    class="textarea"
+                    readonly
+                    onclick="this.select()"
+                ></textarea>
+                <button class="btn btn-primary" style="width: 100%; margin-top: 12px;" onclick="copyEmbed()">
+                    📋 Copy to Clipboard
+                </button>
+                <div id="copyMessage" class="message" style="margin-top: 12px;">
+                    ✓ Copied!
+                </div>
+            </div>
         </div>
     </div>
 
@@ -380,29 +372,22 @@
                 return;
             }
             
-            // Get existing quick answers
             let quickAnswers = JSON.parse(localStorage.getItem('god_quick_answers') || '[]');
             
-            // Add new answer with timestamp
             quickAnswers.push({
                 word: answer,
                 timestamp: new Date().toISOString(),
                 source: 'widget'
             });
             
-            // Save to localStorage
             localStorage.setItem('god_quick_answers', JSON.stringify(quickAnswers));
             
-            // Show success message
             message.classList.add('show');
-            
-            // Clear input
             input.value = '';
             
-            // Hide message after 3 seconds
             setTimeout(() => {
                 message.classList.remove('show');
-            }, 3000);
+            }, 2500);
         }
         
         function shareAnswer() {
@@ -416,26 +401,20 @@
             
             const shareText = `God is ${answer}\n\nMy answer from The 7-Day God Mirror 🪞✨\n\nWhat do you think?\n${APP_URL}`;
             
-            // Try native share first (mobile)
             if (navigator.share) {
                 navigator.share({
                     title: 'The 7-Day God Mirror',
                     text: shareText
-                }).catch(() => {
-                    // Fallback to clipboard
-                    fallbackShare(shareText);
-                });
+                }).catch(() => fallbackShare(shareText));
             } else {
                 fallbackShare(shareText);
             }
         }
         
         function fallbackShare(text) {
-            // Copy to clipboard
             navigator.clipboard.writeText(text).then(() => {
                 alert('📋 Share text copied to clipboard!\n\nPaste it anywhere to share your answer.');
             }).catch(() => {
-                // Last resort: show text in prompt
                 prompt('Copy this text to share:', text);
             });
         }
@@ -448,9 +427,9 @@
 <iframe 
     src="${WIDGET_URL}" 
     width="100%" 
-    height="500" 
+    height="400" 
     frameborder="0"
-    style="border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 550px;"
+    style="border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 500px;"
     title="The 7-Day God Mirror"
 ></iframe>`;
             
@@ -459,8 +438,7 @@
         }
         
         function closeEmbed() {
-            const modal = document.getElementById('embedModal');
-            modal.classList.remove('show');
+            document.getElementById('embedModal').classList.remove('show');
         }
         
         function copyEmbed() {
@@ -468,9 +446,6 @@
             const copyMessage = document.getElementById('copyMessage');
             
             embedCode.select();
-            document.execCommand('copy');
-            
-            // Modern way
             navigator.clipboard.writeText(embedCode.value).then(() => {
                 copyMessage.classList.add('show');
                 setTimeout(() => {
@@ -479,25 +454,12 @@
             });
         }
         
-        // Close modal on outside click
-        document.getElementById('embedModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeEmbed();
-            }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeEmbed();
         });
         
-        // Close modal on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeEmbed();
-            }
-        });
-        
-        // Allow Enter key to submit
-        document.getElementById('godAnswer').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                saveAnswer();
-            }
+        document.getElementById('godAnswer').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') saveAnswer();
         });
     </script>
 </body>
