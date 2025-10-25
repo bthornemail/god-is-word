@@ -1,8 +1,9 @@
 {
-  "name": "ls",
+  "name": "god-is-word",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "homepage": "https://github.com/bthornemail/god-is-word#dist/index.html",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -27,5 +28,21 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.45.0",
     "vite": "^7.1.7"
+  },
+  "files": ["package.json",
+"README",
+"LICENSE"],
+  "funding": [{
+    "type": "cash app",
+    "url": "https://cash.app/$bthornemail"
+  },
+  {
+    "type": "venmo",
+    "url": "https://venmo.com/u/bthornemail"
+  }],
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bthornemail/god-is-word.git"
   }
 }
