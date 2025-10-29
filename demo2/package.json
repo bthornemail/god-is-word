@@ -1,0 +1,37 @@
+{
+  "name": "perceptron-hypergraph-network",
+  "version": "1.0.0",
+  "description": "High-performance multi-process, multi-threaded Perceptron network with hypergraph synchronization using 8-Tuple state (H,L,K,I,F,T,B,D)",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "clean": "rm -rf dist",
+    "test": "node dist/index.js"
+  },
+  "keywords": [
+    "perceptron",
+    "hypergraph",
+    "distributed",
+    "consensus",
+    "geometric",
+    "algebraic",
+    "cryptographic",
+    "ipv6",
+    "fano-plane",
+    "betti-numbers",
+    "hilbert-space"
+  ],
+  "author": "Perceptron Network",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

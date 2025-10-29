@@ -1,0 +1,18 @@
+{
+	"nodes":[
+		{"id":"core-equation","type":"text","x":100,"y":100,"width":320,"height":180,"text":"## UTCF Core\n\n**State Transition:**\nTₙ₊₁ = Tₙ + ΔT\n\n**Mathematical Foundation:**\n- T ∈ ℝ⁸ (continuous state)\n- ΔT = polynomial in 8 variables\n- Polynomial ring K[X₁,...,X₈]\n\n**Key Insight:**\nProgram = ΔT as polynomial","color":"1"},
+		{"id":"computation-model","type":"text","x":500,"y":100,"width":320,"height":180,"text":"## Computation Model\n\n**Execution:**\n1. Evaluate ΔT polynomial at current state\n2. Apply: Tₙ₊₁ = Tₙ + ΔT\n3. Validate polynomial constraints\n\n**Primitives:**\n- Polynomial evaluation\n- Tuple addition\n- Consensus verification","color":"2"},
+		{"id":"consensus-mechanism","type":"text","x":900,"y":100,"width":320,"height":180,"text":"## Consensus & Types\n\n**Geometric Consensus:**\n- K₃, K₄, K₅ complete graphs\n- Mean coordinate in ℝ⁸\n- Proof: Algebraic convergence\n\n**Type System:**\n- Values = Polynomial ring elements\n- Morphisms = Polynomial maps\n- ΔT preserves ring structure","color":"3"},
+		{"id":"state-machine","type":"text","x":100,"y":350,"width":320,"height":150,"text":"## State Machine\n\n**Memory:**\n- SharedArrayBuffer for ℝ⁸ tuples\n- Atomic read/write per dimension\n- Persistent log of (Tₙ, ΔT) pairs\n\n**Rollback:**\nInvalid ΔT → revert to Tₙ","color":"4"},
+		{"id":"polynomial-rings","type":"text","x":500,"y":350,"width":320,"height":150,"text":"## Polynomial Structure\n\n**Recursive Decomposition:**\nK[X₁,...,X₈] ≅ (K[X₁,...,X₇])[X₈]\n\n**Dimensional Reduction:**\n8D → lower via ring homomorphisms\n\n**Universal Computation:**\nAny program = polynomial in 8 variables","color":"5"},
+		{"id":"proofs-verification","type":"text","x":900,"y":350,"width":320,"height":150,"text":"## Essential Proofs\n\n**1. Turing Completeness:**\nPolynomials can compute any function\n\n**2. Consensus Convergence:**\nGeometric means converge exponentially\n\n**3. Type Safety:**\nPolynomial operations preserve structure","color":"6"}
+	],
+	"edges":[
+		{"fromNode":"core-equation","toNode":"computation-model","color":"1","fromSide":"right","toSide":"left"},
+		{"fromNode":"core-equation","toNode":"polynomial-rings","color":"2"},
+		{"fromNode":"computation-model","toNode":"state-machine","color":"3"},
+		{"fromNode":"computation-model","toNode":"consensus-mechanism","color":"4"},
+		{"fromNode":"polynomial-rings","toNode":"proofs-verification","color":"5"},
+		{"fromNode":"consensus-mechanism","toNode":"proofs-verification","color":"6"}
+	]
+}

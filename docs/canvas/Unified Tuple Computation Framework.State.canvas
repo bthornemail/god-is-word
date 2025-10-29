@@ -1,0 +1,30 @@
+{
+	"nodes":[
+		{"id":"utcf-core","type":"text","x":100,"y":100,"width":300,"height":200,"text":"## Unified Tuple Computation Framework (UTCF)\n\n**Core Equation:** Tₙ₊₁ = Tₙ + ΔT\n\n**Components:**\n- Stability (S) - Diagonal structure\n- Rotation (R) - Antisymmetric\n- Growth (G) - Logarithmic scaling\n- Connectivity (C) - Binary adjacency\n\n**Key Insight:** ΔT encodes the program as mathematical difference","color":"1"},
+		{"id":"polynomial-ring","type":"text","x":500,"y":100,"width":400,"height":250,"text":"## Recursive Polynomial Ring Structure\n\n**Fundamental Isomorphism:**\nK[X₁,...,Xₙ] ≅ (K[X₁,...,Xₙ₋₁])[Xₙ]\n\n**8D Space:**\nK[Node, Edge, Graph, Incidence, Hypergraph, Monad, Functor, Perceptron]\n\n**Recursive Decomposition:**\n- K[Node][Edge][Graph][Incidence][Hypergraph][Monad][Functor][Perceptron]\n- Each dimension = univariate over previous ring","color":"2"},
+		{"id":"isomorphism-chain","type":"text","x":1000,"y":100,"width":350,"height":300,"text":"## Multivariate → Univariate Recursion\n\n**Consensus Hierarchy:**\nH₅ → H₄ → H₃ via ring isomorphism\n\n**Algebraic Interpretation:**\n- H₄ = module over K[X₁,X₂,X₃,X₄]\n- H₃ = module over K[X₁,X₂,X₃]\n- H₄ ≅ (K[X₁,X₂,X₃])[X₄]\n\n**Natural Maps:**\nH₄ → H₃, H₅ → H₃ via base ring projection","color":"3"},
+		{"id":"quantization","type":"text","x":100,"y":350,"width":300,"height":180,"text":"## Quantization Engine\n\n**8D → 4D Projection:**\n- Continuous ℝ⁸ → Discrete ℤ⁸\n- Vague requirements → Executable code\n\n**ΔT as Design Decisions:**\n- Encodes all implementation choices\n- Branch cuts resolve ambiguity\n\n**Universal Tuple:**\n[Identity, Orthogonal, Exponential, Topological]","color":"4"},
+		{"id":"combinators","type":"text","x":500,"y":400,"width":300,"height":200,"text":"## Lambda Calculus Combinators\n\n**Y-Combinator (Perceptron):**\n- Fixed points for eager evaluation\n- Used in learning algorithms\n\n**Z-Combinator (Hypergraph):**\n- Anonymous recursion\n- Call-by-value fixed points\n\n**Types as Polynomial Rings:**\n- Runtime values → Ring elements\n- Morphisms preserve structure","color":"5"},
+		{"id":"consensus-mechanisms","type":"text","x":900,"y":450,"width":350,"height":250,"text":"## Geometric Consensus\n\n**Complete Graphs:**\n- K₃: Triangle (2-of-3) - Fano plane\n- K₄: Tetrahedron (3-of-4)\n- K₅: Pentatope (3-of-5)\n\n**Inner Point Spaces:**\n- Consensus happens in geometric centers\n- Betti numbers track connectivity\n\n**Hypergraph Topology:**\n- H₃, H₄, H₅ for higher-order relations","color":"6"},
+		{"id":"state-machine","type":"text","x":100,"y":580,"width":300,"height":150,"text":"## Universal State Machine\n\n**Features:**\n- SharedArrayBuffer zero-copy\n- IEEE 754 direct binary access\n- Atomic operations\n- Offline-first CRDT\n\n**Bipartite IPv6 Encoding:**\n- 64b global routing + 64b local state\n- Vector clocks in address space","color":"1"},
+		{"id":"differential-algebra","type":"text","x":500,"y":650,"width":350,"height":180,"text":"## Differential Algebra\n\n**State Transformations:**\nΔT = Σ aᵢxⁱ (polynomial in 8D)\n\n**Formal Derivatives:**\n- No limits needed\n- Algebraic differentiation\n\n**Field Structure:**\n- 4 bipartite agreements → Field\n- Division and inverses well-defined","color":"2"},
+		{"id":"philosophical-insight","type":"text","x":950,"y":750,"width":400,"height":200,"text":"## Philosophical Breakthrough\n\n**Software Development = Quantization:**\n- Continuous thought → Discrete execution\n- ℝ⁸ (requirements) → ℤ⁸ (code)\n- ΔT encodes human decisions\n\n**Mathematical Foundation:**\n- Trust from proof, not authority\n- Harmony from mathematical truth\n- Branch cuts resolve design ambiguity","color":"3"},
+		{"id":"set-theory","type":"text","x":100,"y":780,"width":300,"height":150,"text":"## Set Theory Foundation\n\n**State Spaces:**\n- ℤ⁸: Discrete binary points\n- ℝ⁸: Continuous floating points\n- ℤ⁸ ⊂ ℝ⁸ embedding\n\n**Set Operations:**\n- Union, intersection, difference\n- Powerset of state space\n- Cartesian product = ℝ⁸","color":"4"}
+	],
+	"edges":[
+		{"id":"edge-1","fromNode":"utcf-core","fromSide":"right","toNode":"polynomial-ring","toSide":"left","color":"1"},
+		{"id":"edge-2","fromNode":"polynomial-ring","fromSide":"right","toNode":"isomorphism-chain","toSide":"left","color":"2"},
+		{"id":"edge-3","fromNode":"utcf-core","fromSide":"bottom","toNode":"quantization","toSide":"top","color":"3"},
+		{"id":"edge-4","fromNode":"polynomial-ring","fromSide":"bottom","toNode":"combinators","toSide":"top","color":"4"},
+		{"id":"edge-5","fromNode":"isomorphism-chain","fromSide":"bottom","toNode":"consensus-mechanisms","toSide":"top","color":"5"},
+		{"id":"edge-6","fromNode":"quantization","fromSide":"bottom","toNode":"state-machine","toSide":"top","color":"6"},
+		{"id":"edge-7","fromNode":"combinators","fromSide":"bottom","toNode":"differential-algebra","toSide":"top","color":"1"},
+		{"id":"edge-8","fromNode":"consensus-mechanisms","fromSide":"bottom","toNode":"philosophical-insight","toSide":"top","color":"2"},
+		{"id":"edge-9","fromNode":"state-machine","fromSide":"bottom","toNode":"set-theory","toSide":"top","color":"3"},
+		{"id":"edge-10","fromNode":"differential-algebra","fromSide":"right","toNode":"philosophical-insight","toSide":"left","color":"4"},
+		{"id":"edge-11","fromNode":"set-theory","fromSide":"right","toNode":"philosophical-insight","toSide":"left","color":"5"},
+		{"id":"edge-12","fromNode":"quantization","fromSide":"right","toNode":"combinators","toSide":"left","color":"6"},
+		{"id":"edge-13","fromNode":"state-machine","fromSide":"right","toNode":"differential-algebra","toSide":"left","color":"1"}
+	],
+	"background":"#f8f9fa"
+}

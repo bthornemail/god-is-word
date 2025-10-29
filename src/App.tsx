@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Calendar, Download, BarChart3, Sparkles, Upload, Users, Share2, TrendingUp, MapPin, Shield, Network } from 'lucide-react';
 import "./App.css"
+import type { Perceptron, FanoPlane, BlockDesign, binary16, binary32, binary64, binary128, binary256, DecimalSpace } from './perceptron-types';
 
 const GodReflectionJournal = () => {
-  const [entries, setEntries] = useState([]);
+  const [entries, setEntries] = useState<Perceptron[]>([]);
   const [currentDay, setCurrentDay] = useState(1);
   const [todayEntry, setTodayEntry] = useState({ word: '', content: '', type: 'text', triples: [] });
   const [view, setView] = useState('journal');
@@ -18,7 +19,17 @@ const GodReflectionJournal = () => {
     const stored = localStorage.getItem('god_reflections');
     if (stored) {
       const parsed = JSON.parse(stored);
-      setEntries(parsed.entries || []);
+      // Migration for old data structure
+      if (parsed.entries && parsed.entries.length > 0 && !parsed.entries[0].point) {
+        const migratedEntries = parsed.entries.map(entry => {
+          const perceptron = createPerceptron(entry);
+          return perceptron;
+        });
+        setEntries(migratedEntries);
+        localStorage.setItem('god_reflections', JSON.stringify({ ...parsed, entries: migratedEntries }));
+      } else {
+        setEntries(parsed.entries || []);
+      }
       setCurrentDay(parsed.currentDay || 1);
     }
     
@@ -48,7 +59,7 @@ const GodReflectionJournal = () => {
     return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
   };
 
-  const hashMessage = async (message) => {
+  const hashMessage = async (message: string): Promise<string> => {
     const encoder = new TextEncoder();
     const data = encoder.encode(message);
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
@@ -56,13 +67,43 @@ const GodReflectionJournal = () => {
     return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   };
 
-  const signData = async (data) => {
+  const createPerceptron = async (entryData: { word: string, content: string, triples: any[] }): Promise<Perceptron> => {
+    const combined_input = `${entryData.word}-${entryData.content}-${JSON.stringify(entryData.triples)}`;
+    const hash = await hashMessage(combined_input);
+
+    const blockDesign: BlockDesign = {
+        Node: parseInt(hash.substring(0, 4), 16) / 65535.0, // binary16
+        Edge: parseInt(hash.substring(4, 12), 16) / 4294967295.0, // binary32
+        Graph: parseInt(hash.substring(12, 28), 16) / Number.MAX_SAFE_INTEGER, // binary64
+        Incidence: hash.substring(28, 60), // binary128
+        Hypergraph: hash.substring(0, 64), // binary256
+    };
+
+    const fanoPlane: FanoPlane = {
+        ...blockDesign,
+        Functor: "0", // Placeholder
+        Monad: "0" // Placeholder
+    };
+
+    const perceptron: Perceptron = {
+        point: fanoPlane,
+        word: entryData.word,
+        content: entryData.content,
+        triples: entryData.triples,
+        timestamp: new Date().toISOString(),
+        day: currentDay,
+    };
+
+    return perceptron;
+  };
+
+  const signData = async (data: any): Promise<string> => {
     const message = JSON.stringify(data);
     const hash = await hashMessage(message + privateKey);
     return hash;
   };
 
-  const verifySignature = async (data, signature) => {
+  const verifySignature = async (data: any, signature: string): Promise<boolean> => {
     // For verification, we check if the signature matches any known public key
     // In a real implementation, this would use proper asymmetric crypto
     const hash = await hashMessage(JSON.stringify(data) + signature);
@@ -76,30 +117,29 @@ const GodReflectionJournal = () => {
     });
   };
 
-  const updateTriple = (index, field, value) => {
+  const updateTriple = (index: number, field: string, value: string) => {
     const newTriples = [...(todayEntry.triples || [])];
     newTriples[index][field] = value;
     setTodayEntry({ ...todayEntry, triples: newTriples });
   };
 
-  const removeTriple = (index) => {
+  const removeTriple = (index: number) => {
     const newTriples = (todayEntry.triples || []).filter((_, i) => i !== index);
     setTodayEntry({ ...todayEntry, triples: newTriples });
   };
 
-  const saveEntry = () => {
+  const saveEntry = async () => {
     if (!todayEntry.word.trim()) return;
     
-    const newEntry = {
-      day: currentDay,
+    const newEntryData = {
       word: todayEntry.word,
       content: todayEntry.content,
-      type: todayEntry.type,
       triples: (todayEntry.triples || []).filter(t => t.subject || t.predicate || t.object),
-      timestamp: new Date().toISOString()
     };
 
-    const newEntries = [...entries.filter(e => e.day !== currentDay), newEntry];
+    const newPerceptron = await createPerceptron(newEntryData);
+
+    const newEntries = [...entries.filter(e => e.day !== currentDay), newPerceptron];
     setEntries(newEntries);
     
     localStorage.setItem('god_reflections', JSON.stringify({
@@ -120,7 +160,7 @@ const GodReflectionJournal = () => {
       entries: entries,
       pattern: analyzeBinomial(),
       generated: new Date().toISOString(),
-      version: '1.0.0'
+      version: '2.0.0' // Version bump for new structure
     };
     
     const canvas = canvasRef.current;
@@ -168,8 +208,8 @@ const GodReflectionJournal = () => {
       entries: entries,
       pattern: analyzeBinomial(),
       generated: new Date().toISOString(),
-      version: '1.0.0',
-      type: 'god_reflection_signature',
+      version: '2.0.0',
+      type: 'god_reflection_signature_perceptron',
       publicKey: await hashMessage(privateKey) // Public key derived from private
     };
     
@@ -181,7 +221,7 @@ const GodReflectionJournal = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `god-signature-${Date.now()}.json`;
+    a.download = `god-signature-perceptron-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -195,16 +235,21 @@ const GodReflectionJournal = () => {
     a.click();
   };
 
-  const importSignature = async (event) => {
-    const file = event.target.files[0];
+  const importSignature = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (!file) return;
     
     const reader = new FileReader();
     reader.onload = async (e) => {
       try {
-        const imported = JSON.parse(e.target.result);
-        if (imported.type === 'god_reflection_signature') {
-          // Verify signature if present
+        const imported = JSON.parse(e.target.result as string);
+        
+        if (imported.type === 'god_reflection_signature_perceptron') {
+          if (collectiveData.some(d => d.publicKey === imported.publicKey)) {
+            alert("This signature has already been imported.");
+            return;
+          }
+
           if (imported.cryptoSignature) {
             const { cryptoSignature, ...dataToVerify } = imported;
             const isValid = await verifySignature(dataToVerify, imported.publicKey);
@@ -214,12 +259,53 @@ const GodReflectionJournal = () => {
           const newCollective = [...collectiveData, imported];
           setCollectiveData(newCollective);
           localStorage.setItem('god_collective', JSON.stringify(newCollective));
+          alert('Successfully imported 1 new signature.');
+
+        } else if (imported.type === 'god_collective_data') {
+          const existingKeys = new Set(collectiveData.map(d => d.publicKey));
+          const newSignatures = imported.data.filter(d => d.publicKey && !existingKeys.has(d.publicKey));
+
+          if (newSignatures.length === 0) {
+            alert("All signatures from this collective file have already been imported.");
+            return;
+          }
+
+          const newCollective = [...collectiveData, ...newSignatures];
+          setCollectiveData(newCollective);
+          localStorage.setItem('god_collective', JSON.stringify(newCollective));
+          alert(`Imported ${newSignatures.length} new signatures from the collective file.`);
+
+        } else {
+          alert("This appears to be an old or invalid signature format.");
         }
       } catch (err) {
-        console.error('Invalid signature file');
+        console.error('Invalid signature file', err);
+        alert('The selected file is not a valid signature file.');
       }
     };
     reader.readAsText(file);
+  };
+
+  const exportCollectiveData = async () => {
+    if (collectiveData.length === 0) {
+      alert("There is no collective data to export.");
+      return;
+    }
+
+    const dataToExport = {
+      type: 'god_collective_data',
+      version: '1.0.0',
+      generated: new Date().toISOString(),
+      data: collectiveData
+    };
+
+    const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `god-collective-${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const analyzeTripleGraph = () => {
@@ -421,7 +507,7 @@ const GodReflectionJournal = () => {
     return { positive, negative, neutral };
   };
 
-  const getDayEntry = (day) => entries.find(e => e.day === day);
+  const getDayEntry = (day: number) => entries.find(e => e.day === day);
 
   return (
     <div className="god-journal-container">
@@ -634,25 +720,25 @@ const GodReflectionJournal = () => {
               <Users /> Collective Analysis
             </h2>
             
-            <div className="mb-6">
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".json"
-                onChange={importSignature}
-                className="hidden"
-              />
+            <div className="mb-6 flex justify-center gap-4">
               <button
                 onClick={() => fileInputRef.current?.click()}
                 className="btn btn-success"
               >
                 <Upload className="w-5 h-5" />
-                Import God Signature
+                Import Signature(s)
               </button>
-              <p className="text-xs text-slate-400 mt-2 text-center">
-                Import JSON signatures from others to see collective patterns
-              </p>
+              <button
+                onClick={exportCollectiveData}
+                className="btn btn-secondary"
+              >
+                <Download className="w-5 h-5" />
+                Export Collective
+              </button>
             </div>
+            <p className="text-xs text-slate-400 mt-2 text-center">
+              Import individual or collective signatures to see patterns
+            </p>
 
             {collectiveData.length === 0 ? (
               <div className="text-center text-purple-300 py-8">

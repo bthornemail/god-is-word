@@ -1,0 +1,208 @@
+{
+  "main": {
+    "id": "20662c8314c337c8",
+    "type": "split",
+    "children": [
+      {
+        "id": "afcfadd668d82026",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c52be0237b9c8841",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "canvas/Unified Tuple Computation Framework Functional State.canvas",
+                "viewState": {
+                  "x": 925,
+                  "y": 750,
+                  "zoom": -1.4572473713754217
+                }
+              },
+              "icon": "lucide-layout-dashboard",
+              "title": "Unified Tuple Computation Framework Functional State"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f473060006ac9e4a",
+    "type": "split",
+    "children": [
+      {
+        "id": "1dadebe94d764f68",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ddfb61fd13c1a459",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "949c3b18d07417ab",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "a0341bb777fbeb00",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 255.5
+  },
+  "right": {
+    "id": "976fdd8acf2bf9d0",
+    "type": "split",
+    "children": [
+      {
+        "id": "bcc3a5622991e825",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8be1049ed21471e5",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "canvas/combined.canvas.v1 copy.canvas",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for combined.canvas.v1 copy"
+            }
+          },
+          {
+            "id": "84047301c8839fd4",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "canvas/combined.canvas.v1 copy.canvas",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from combined.canvas.v1 copy"
+            }
+          },
+          {
+            "id": "dfea897faf447409",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "bbbabc865ef0da41",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "canvas/combined.canvas.v1 copy.canvas",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of combined.canvas.v1 copy"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "c52be0237b9c8841",
+  "lastOpenFiles": [
+    "Mapping.md",
+    "RESEARCH/claude_chat_history.md",
+    "canvas/Topologolical Point Space Mode of the Concept of God.canvas",
+    "canvas/combined.canvas",
+    "canvas/Unified Tuple Computation Framework Functional State.canvas",
+    "canvas/Unified Tuple Computation Framework.Function.canvas",
+    "canvas/Unified Tuple Computation Framework.State.canvas",
+    "canvas/archive/Topologolical Point Space Mode of the Concept of God.canvas",
+    "canvas/archive/Clear.canvas",
+    "canvas/Unified Tuple Computation Framework.Clear.canvas",
+    "canvas/Unified Tuple Computation Framework.Complete.canvas",
+    "canvas/archive/index.html",
+    "canvas/Complete.canvas",
+    "canvas/archive/edit.js",
+    "canvas/archive/combined.canvas.v15.json",
+    "canvas/archive/combined.canvas.v13.json",
+    "canvas/archive/combined.canvas.v10.json",
+    "canvas/archive/combined.canvas.v9.json",
+    "canvas/archive/combined.canvas.v8.json",
+    "canvas/archive/combined copy.canvas.json",
+    "canvas/archive",
+    "canvas/combined.canvas.v15.json",
+    "archive/UNIVERSAL IEEE 754 DISTRIBUTED STATE MACHINE.ts.md",
+    "Unified Tuple Computation Framework (UTCF) - Appendix C - Categorical Interpretation.md",
+    "Unified Tuple Computation Framework (UTCF) - Appendix C: Categorical Interpretation.md",
+    "Unified Tuple Computation Framework (UTCF) - Appendi.md",
+    "Unified Tuple Computation Framework (UTCF) - A Functional Matrix Model for System Decomposition and Structural Coherence copy.md",
+    "Unified Tuple Computation Framework (UTCF) - Compilation Instructions.md",
+    "Compilation Instructions.md",
+    "sad.md"
+  ]
+}

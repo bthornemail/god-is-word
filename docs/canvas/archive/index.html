@@ -1,0 +1,36 @@
+<head>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+
+    <script src="//cdn.jsdelivr.net/npm/force-graph"></script>
+    <!--<script src="../../dist/force-graph.js"></script>-->
+</head>
+
+<body>
+    <div id="graph"></div>
+
+    <script>
+        fetch('./combined.canvas.v13.json').then(res => res.json()).then(({ nodes, edges }) => {
+            const Graph = new ForceGraph(document.getElementById('graph'))
+                .graphData({
+                    nodes, links: edges.map((edge) => {
+                        return edge 
+                        // {
+                        //     ...edge,
+                        //     source: edge.fromNode,
+                        //     target: edge.toNode
+                        // }
+                    })
+                })
+                .nodeId('id')
+                // .nodeVal('text')
+                .nodeLabel('text')
+                // .nodeAutoColorBy('group')
+                .linkSource('fromNode')
+                .linkTarget('toNode')
+        });
+    </script>
+</body>

@@ -11,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "d3": "^7.9.0",
+    "d3-force": "^3.0.0",
     "lucide-react": "^0.548.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
@@ -29,18 +31,21 @@
     "typescript-eslint": "^8.45.0",
     "vite": "^7.1.7"
   },
-  "files": ["package.json",
-"README",
-"LICENSE"],
-  "funding": [{
-    "type": "cash app",
-    "url": "https://cash.app/$bthornemail"
-  },
-  {
-    "type": "venmo",
-    "url": "https://venmo.com/u/bthornemail"
-  }],
-
+  "files": [
+    "package.json",
+    "README",
+    "LICENSE"
+  ],
+  "funding": [
+    {
+      "type": "cash app",
+      "url": "https://cash.app/$bthornemail"
+    },
+    {
+      "type": "venmo",
+      "url": "https://venmo.com/u/bthornemail"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/bthornemail/god-is-word.git"
