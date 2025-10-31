@@ -4,24 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "afcfadd668d82026",
+        "id": "41670b5576e47fd5",
         "type": "tabs",
         "children": [
           {
-            "id": "c52be0237b9c8841",
+            "id": "3c8826cede12f077",
             "type": "leaf",
             "state": {
               "type": "canvas",
               "state": {
-                "file": "canvas/Unified Tuple Computation Framework Functional State.canvas",
+                "file": "Update.to.canvasss.canvas",
                 "viewState": {
-                  "x": 925,
-                  "y": 750,
-                  "zoom": -1.4572473713754217
+                  "x": 910,
+                  "y": 1000,
+                  "zoom": -2.1104239896936505
                 }
               },
               "icon": "lucide-layout-dashboard",
-              "title": "Unified Tuple Computation Framework Functional State"
+              "title": "Update.to.canvasss"
             }
           }
         ]
@@ -172,37 +172,52 @@
       "bases:Create new base": false
     }
   },
-  "active": "c52be0237b9c8841",
+  "active": "3c8826cede12f077",
   "lastOpenFiles": [
-    "Mapping.md",
-    "RESEARCH/claude_chat_history.md",
+    "Untitled.canvas",
+    "RESEARCH/StateMachine/Rumsfeld/Agent Guidance - Computational Trinity Operating Principles.md",
+    "RESEARCH/StateMachine/Rumsfeld/A Critical Meta-Rumsfeldian Review of Scheme and Topological Program Analysis.md",
+    "RESEARCH/StateMachine/A Critical Meta-Rumsfeldian Review of Scheme and Topological Program Analysis.md",
+    "RESEARCH/StateMachine/Rumsfeld/FORMALIZING THE EVAL-APPLY - SPEC CONNECTION.md",
+    "RESEARCH/StateMachine/A Formal Geometrization of Computation - R5RS Scheme as a Grothendieck Scheme.md",
+    "RESEARCH/StateMachine/Formal Proof Sketch - R5RS Scheme as Grothendieck Scheme.md",
+    "RESEARCH/StateMachine/FORMALIZING THE EVAL-APPLY - SPEC CONNECTION.md",
+    "RESEARCH/StateMachine/FORMAL DEFINITION - Evaluation Scheme.md",
+    "RESEARCH/StateMachine/FORMAL DEFINITION Evaluation Scheme.md",
+    "RESEARCH/StateMachine/Rumsfeld/The Known Unknowns of the Computational Scheme Theory - Formal Constructions via Grothendieck Schemes.md",
+    "RESEARCH/StateMachine/Rumsfeld/The Grand Unification - The Trinity of Structure.md",
+    "RESEARCH/StateMachine/Rumsfeld",
+    "RESEARCH/StateMachine/The Grand Unification - The Trinity of Structure.md",
+    "RESEARCH/StateMachine/The Known Unknowns of the Computational Scheme Theory - Formal Constructions via Grothendieck Schemes.md",
+    "RESEARCH/StateMachine/The Fundamental Pattern - Mathematics IS Computation.md",
+    "RESEARCH/StateMachine/schemereseatch.txt",
+    "RESEARCH/StateMachine/schemethreor.post.md",
+    "RESEARCH/StateMachine/A Critical Meta-Rumsfeldian Review of Scheme and Topological Program Analysis.txt",
+    "RESEARCH/StateMachine/Deep Analysis - The Commutative Algebra of R5RS Binding and the Homological Duality of Program Invariants.md",
+    "RESEARCH/StateMachine/The Bipartite Realization - Two Dual Computational Layers.md",
+    "RESEARCH/StateMachine/Agent Guidance - Computational Trinity Operating Principles.md",
+    "RESEARCH/StateMachine/prrofsketch.md",
+    "RESEARCH/StateMachine/schemetjeory.md",
+    "RESEARCH/StateMachine/Rumsfeldian Analysis - Implementation Strategy for Computational Scheme Theory.md",
+    "RESEARCH/StateMachine/R5RS Scheme as an Affine Grothendieck Scheme.md",
+    "RESEARCH/StateMachine/The Idempotent Geometry of Distributed State - A Rig-Based Hypergraph Model for Decentralized RPC Causality.md",
+    "RESEARCH/StateMachine/Project Proposal - Empirical Validation of Computational Scheme Theory.md",
+    "RESEARCH/StateMachine",
+    "Update.to.canvasss.canvas",
+    "Update.to.canvasss.md",
+    "Untitled.base",
+    "Untitled 1.base",
+    "canvas/Unified Tuple Computation Framework Functional State.canvas",
     "canvas/Topologolical Point Space Mode of the Concept of God.canvas",
     "canvas/combined.canvas",
-    "canvas/Unified Tuple Computation Framework Functional State.canvas",
     "canvas/Unified Tuple Computation Framework.Function.canvas",
     "canvas/Unified Tuple Computation Framework.State.canvas",
     "canvas/archive/Topologolical Point Space Mode of the Concept of God.canvas",
     "canvas/archive/Clear.canvas",
     "canvas/Unified Tuple Computation Framework.Clear.canvas",
-    "canvas/Unified Tuple Computation Framework.Complete.canvas",
     "canvas/archive/index.html",
-    "canvas/Complete.canvas",
     "canvas/archive/edit.js",
     "canvas/archive/combined.canvas.v15.json",
-    "canvas/archive/combined.canvas.v13.json",
-    "canvas/archive/combined.canvas.v10.json",
-    "canvas/archive/combined.canvas.v9.json",
-    "canvas/archive/combined.canvas.v8.json",
-    "canvas/archive/combined copy.canvas.json",
-    "canvas/archive",
-    "canvas/combined.canvas.v15.json",
-    "archive/UNIVERSAL IEEE 754 DISTRIBUTED STATE MACHINE.ts.md",
-    "Unified Tuple Computation Framework (UTCF) - Appendix C - Categorical Interpretation.md",
-    "Unified Tuple Computation Framework (UTCF) - Appendix C: Categorical Interpretation.md",
-    "Unified Tuple Computation Framework (UTCF) - Appendi.md",
-    "Unified Tuple Computation Framework (UTCF) - A Functional Matrix Model for System Decomposition and Structural Coherence copy.md",
-    "Unified Tuple Computation Framework (UTCF) - Compilation Instructions.md",
-    "Compilation Instructions.md",
-    "sad.md"
+    "canvas/archive/combined.canvas.v13.json"
   ]
 }

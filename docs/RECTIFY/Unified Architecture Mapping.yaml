@@ -1,0 +1,740 @@
+# ============================================================================
+# Unified Architecture Mapping
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# 𝒫 - PERCEPTRON DEFINITION
+# ----------------------------------------------------------------------------
+
+Perceptron:
+  definition: "𝒫 = [H, L, K, I, F, T, B, D]"
+  meaning: "The entire ordered 8-tuple defining complete agent state"
+  role: "Consensus and verification layer"
+
+# ============================================================================
+# PERCEPTRON STATE - CONSENSUS/VERIFICATION LAYER
+# ============================================================================
+PerceptronState:
+  role: "Consensus and cryptographic verification"
+  purpose: "Prove that computation was valid and achieve Byzantine consensus"
+  speed: "Slower (cryptographic overhead)"
+  scope: "Distributed network"
+
+# ----------------------------------------------------------------------------
+# H - Hilbert Space (Verification Basis)
+# ----------------------------------------------------------------------------
+H:
+  role: "Complete normalized L₂-norm space of all possible conceptual states"
+  purpose: "Total working vocabulary and knowledge context"
+  
+  # From K - Cryptographic primitives  
+  cryptographic:
+    - Public_Key: "For signature verification"
+    - Hash_Function: "SHA-256/BLAKE3 for integrity"
+
+  # From I - Transformation as data
+  geometric:
+    - ΔT_data: "Transform Basis as conceptual object (proof input)"
+  
+  # From F - Functional primitives
+  computational:
+    - Read: "Input operation"
+    - Eval: "Evaluation operation"
+    - Print: "Output operation"
+    - Loop: "Iteration primitive"
+    - Y_Combinator: "Pure recursion primitive (closure)"
+    - Z_Combinator: "Eager-evaluation recursion (exploration)"
+  
+  # From T - Semantic primitives
+  epistemic:
+    - Modality: "MUST/SHOULD/MAY certainty qualifier"
+    - Subject: "Knowledge subject"
+    - Predicate: "Knowledge relation"
+    - Object: "Knowledge object"
+  
+  # From B - Geometric/Categorical primitives
+  structural:
+    - v: "Nodes (vertices in hypergraph)"
+    - k: "Edges (local connectivity)"
+    - λ: "Graphs (incidence structure)"
+    - r: "Incidences (block intersections)"
+    - b: "Hypergraphs (higher-order relations)"
+    - Functor: "Structure-preserving map"
+    - Monad: "Context-adding composition"
+
+  # From D - Data primitives
+  algebraic:
+    - IEEE_754: "Floating-point standard"
+    - Binary_Encoding: "Binary representation"
+  
+  # Self-reference / Temporal index
+  temporal:
+    - τ_State: "Monotonically increasing temporal index"
+    - State: "step: Perceptron (self-referential state)"
+
+# ----------------------------------------------------------------------------
+# L - Async Logic (Control Flow Primitives)
+# ----------------------------------------------------------------------------
+L:
+  role: "Execution control and asynchronous computation management"
+  purpose: "Manage state transitions and error handling"
+  
+  primitives:
+    - Async: "Promise creation"
+    - Await: "Promise resolution"
+    - Try: "Error boundary enter"
+    - Catch: "Error handler"
+    - Call: "Function application f(x)"
+    - ΔT_exec: "State Transform as executable operation (code)"
+
+# ----------------------------------------------------------------------------
+# K - Cryptographic Identity (Sovereignty Proof)
+# ----------------------------------------------------------------------------
+K:
+  role: "Agent's tools for sovereignty proof"
+  purpose: "Generate authenticated state transitions"
+  
+  keys:
+    - Private_Key: "Signing key (never stored in H)"
+    - Public_Key: "Verification key (stored in H)"
+  
+  functions:
+    - Hash_Function: "SHA-256, BLAKE3"
+    - Sign_Function: "Ed25519, ECDSA"
+    - Verify_Function: "Signature verification"
+
+# ----------------------------------------------------------------------------
+# I - Geometric Invariants (Verifiable Invariants)
+# ----------------------------------------------------------------------------
+I:
+  role: "Pure mathematical data for geometric consensus"
+  purpose: "Identical and verifiable across all peers"
+  
+  components:
+    Block_Design:
+      notation: "(v, k, λ, r, b)"
+      values: "(7, 3, 1, 3, 7)  # Fano plane"
+      purpose: "P2P synchronization structure"
+      
+    Betti_Numbers:
+      notation: "(β₀, β₁, β₂, β₃)"
+      meaning:
+        - β₀: "Connected components (MUST = 1 for unified network)"
+        - β₁: "Independent cycles (MUST = 0 for coherence)"
+        - β₂: "2D voids (0 for matrices)"
+        - β₃: "3D voids (0 for matrices)"
+      
+    Schläfli_Symbol:
+      notation: "{p, q, r, ...}"
+      purpose: "Geometric shape classification"
+      
+    ΔT_proof:
+      type: "Change of Basis Transform"
+      role: "Verifiable invariant (proof)"
+      purpose: "Matrix expressing state transformation"
+
+# ----------------------------------------------------------------------------
+# F - Functional Primitives (Turing-Complete Basis)
+# ----------------------------------------------------------------------------
+F:
+  role: "Minimum irreducible operations of computation layer"
+  purpose: "Lambda calculus foundation"
+  
+  primitives:
+    - Read: "Input"
+    - Eval: "Evaluation"
+    - Print: "Output"
+    - Loop: "Iteration"
+    - Y_Combinator: "Pure recursion (fixed-point)"
+    - Z_Combinator: "Eager recursion"
+
+# ----------------------------------------------------------------------------
+# T - Semantic & Epistemic Basis (Knowledge Structure)
+# ----------------------------------------------------------------------------
+T:
+  role: "Irreducible structure for verifiable knowledge assertions"
+  purpose: "Form semantic triples with epistemic context"
+  
+  components:
+    - Subject: "Entity being described"
+    - Predicate: "Relationship/property"
+    - Object: "Related entity/value"
+    - Modality: "Certainty measure (σ) or normative keyword"
+
+# ----------------------------------------------------------------------------
+# B - Universal Basis (Categorical Generators)
+# ----------------------------------------------------------------------------
+B:
+  role: "7 Monadic/Categorical generators of Hilbert Space"
+  purpose: "Define abstract types the Perceptron can process"
+  
+  generators:
+    Node:
+      symbol: "v"
+      meaning: "Points in hypergraph"
+      
+    Edge:
+      symbol: "k"
+      meaning: "Nodes per block (local connectivity)"
+      
+    Graph:
+      symbol: "λ"
+      meaning: "Incidence (blocks sharing pairs)"
+      
+    Incidence:
+      symbol: "r"
+      meaning: "Block intersections"
+      
+    Hypergraph:
+      symbol: "b"
+      meaning: "Higher-order relations"
+      
+    Functor:
+      role: "Structure-preserving map"
+      isomorphism: "Functor ≅ Exponent (IEEE 754)"
+      
+    Monad:
+      role: "Context-adding composition"
+      isomorphism: "Monad ≅ Mantissa (IEEE 754)"
+
+# ----------------------------------------------------------------------------
+# D - Data Primitives (Algebraic Standards)
+# ----------------------------------------------------------------------------
+D:
+  role: "Canonical algebraic standards for numerical representation"
+  purpose: "Ensure consistency in continuous algebra"
+  
+  standards:
+    IEEE_754:
+      role: "Floating-point standard"
+      isomorphism: "Functor ≅ Exponent"
+      
+    Binary_Encoding:
+      role: "Binary representation standard"
+      isomorphism: "Monad ≅ Mantissa"
+
+# ----------------------------------------------------------------------------
+# S - Metric Signature (Cryptographic Proof)
+# ----------------------------------------------------------------------------
+S:
+  role: "Final cryptographically signed proof certificate"
+  purpose: "Merkle root for synchronization log"
+  
+  function: "MetricSignature(I, K.Private_Key, H.τ_State)"
+  output: "Non-repudiable proof of state transition"
+  properties:
+    - "Authentication of authorship"
+    - "Integrity verification"
+    - "Temporal ordering via τ_State"
+
+# ============================================================================
+# PROPAGATION MECHANISMS
+# ============================================================================
+
+Forward_Propagation:
+  operator: "F: (M_n, ΔT, BlockDesign) → M_{n+1}"
+  components: "Block Design + Perceptron State"
+  purpose: "Data flows forward through geometric structure"
+  characteristics:
+    - "No proof needed (local execution)"
+    - "O(n) local computation"
+    - "Creates output"
+  
+  data_flow: "Input → ΔT → New State → Output"
+  execution: "M_{n+1} = M_n + ΔT"
+
+Backward_Propagation:
+  operator: "B: (S, H, I) → {Valid, Invalid}"
+  components: "Hilbert Space + Block Design + Signature"
+  purpose: "Validity flows backward through same structure"
+  characteristics:
+    - "Cryptographic proof required (global verification)"
+    - "O(1) signature verification"
+    - "Validates state existed"
+  
+  validation_flow: "Output → Verify(S, I) → Valid/Invalid"
+  
+  verification_steps:
+    - "Verify signature with Public Key"
+    - "Check geometric invariants from I"
+    - "Recompute from Hilbert Space basis H"
+    - "Verify Block Design allows this path"
+
+Constraint:
+  statement: "∀ state transitions: F(M_n, ΔT) = M_{n+1} ⟹ B(S, H, I) = Valid"
+  meaning: "Every forward-propagated state MUST produce a valid backward-propagated signature"
+
+---
+
+# ============================================================================
+# UTCF SYSTEM STATE - EXECUTION/COMPUTATION LAYER
+# ============================================================================
+
+SystemState:
+  role: "Execution engine and computation"
+  purpose: "Perform actual matrix operations and compute results"
+  speed: "Fast (O(n²k))"
+  scope: "Local node"
+
+# ----------------------------------------------------------------------------
+# Core Computational State
+# ----------------------------------------------------------------------------
+
+Matrix:
+  symbol: "M ∈ ℝⁿˣⁿ"
+  role: "Current system state"
+  purpose: "Encode all computational state as matrix"
+  dimensionality: "n × n (where n is domain-dependent)"
+
+Components:
+  role: "4-way functional decomposition"
+  purpose: "Interpretable operational semantics"
+  
+  decomposition: "M = αS + βR + γG + δC"
+  
+  weights:
+    default:
+      α: 0.4  # Stability dominant
+      β: 0.3  # Rotation secondary
+      γ: 0.2  # Growth tertiary
+      δ: 0.1  # Connectivity minimal
+    
+    constraint: "α + β + γ + δ = 1"
+  
+  Stability:
+    symbol: "S"
+    role: "Diagonal-dominant structure"
+    extraction: |
+      S_ij = M_ij           if i=j (diagonal)
+      S_ij = 0.1·M_ij       if i≠j (dampened)
+    meaning: "Self-consistent baseline structure"
+    properties:
+      - "tr(S) = tr(M) (trace preserved)"
+      - "Diagonally dominant"
+      - "Eigenvalues cluster near diagonal"
+  
+  Rotation:
+    symbol: "R"
+    role: "Antisymmetric transformations"
+    extraction: "R_ij = (M_ij - M_ji) / 2"
+    meaning: "Directional transformations"
+    properties:
+      - "R^T = -R (antisymmetric)"
+      - "tr(R) = 0 (zero trace)"
+      - "Pure rotational component"
+  
+  Growth:
+    symbol: "G"
+    role: "Logarithmic scaling"
+    extraction: "G_ij = sgn(M_ij)·log(|M_ij| + 1)"
+    meaning: "Magnitude changes"
+    properties:
+      - "|G_ij| ≤ |M_ij| (bounded)"
+      - "Growth rates comparable"
+      - "Handles wide dynamic ranges"
+  
+  Connectivity:
+    symbol: "C"
+    role: "Binary adjacency"
+    extraction: |
+      C_ij = 1  if |M_ij| > ε
+      C_ij = 0  otherwise
+    meaning: "Interaction topology"
+    properties:
+      - "Binary matrix"
+      - "Defines graph G = (V, E)"
+      - "Enables topological analysis"
+    epsilon: 1e-10
+
+# ----------------------------------------------------------------------------
+# Equilibrium Computation
+# ----------------------------------------------------------------------------
+
+Equilibrium:
+  symbol: "v* ∈ ℝⁿ"
+  role: "Principal eigenvector of reconstructed system"
+  purpose: "System's 'center of mass' in configuration space"
+  
+  computation:
+    definition: "v* = argmax_{||v||=1} v^T M̂ v"
+    where: "M̂ = αS + βR + γG + δC"
+    
+    algorithm: "Power Iteration"
+    complexity: "O(n²k) where k ≈ 100 iterations"
+    
+    procedure: |
+      1. v ← random_vector(n)
+      2. for iter = 1 to k:
+           v ← M̂ · v
+           v ← v / ||v||
+      3. return v
+  
+  interpretation: "Dominant steady-state direction"
+
+# ----------------------------------------------------------------------------
+# Connectivity Metrics (Graph-Theoretic Analysis)
+# ----------------------------------------------------------------------------
+
+ConnectivityMetrics:
+  role: "Topological invariants"
+  purpose: "Verify structural coherence"
+  
+  Betti_Numbers:
+    β₀:
+      meaning: "Connected components"
+      computation: "DFS/Union-Find on C"
+      requirement: "MUST = 1 for coherent system"
+      
+    β₁:
+      meaning: "Independent cycles"
+      computation: "β₁ = |E| - |V| + β₀"
+      requirement: "MUST = 0 for coherent system"
+      
+    β₂:
+      meaning: "2D voids"
+      value: "0 (for 2D matrices)"
+      
+    β₃:
+      meaning: "3D voids"
+      value: "0 (for 2D matrices)"
+
+# ----------------------------------------------------------------------------
+# Integrity Score (System Health)
+# ----------------------------------------------------------------------------
+
+IntegrityScore:
+  symbol: "I ∈ [0, 1]"
+  role: "Weighted consistency measure"
+  purpose: "Verify mathematical soundness"
+  
+  formula: "I(M, v*) = Σ wᵢ · 𝟙[Checkᵢ(v*, M)]"
+  
+  checks:
+    Mathematical_Consistency:
+      weight: 0.20
+      condition: "All entries finite, non-NaN"
+      
+    Topological_Integrity:
+      weight: 0.20
+      condition: "β₀ = 1 (connected)"
+      
+    Computational_Boundedness:
+      weight: 0.15
+      condition: "||v*||_∞ < 10⁶"
+      
+    Structural_Preservation:
+      weight: 0.20
+      condition: "corr(v*, M·𝟙) > 0.5"
+      
+    Connectivity_Completeness:
+      weight: 0.25
+      condition: "β₁ = β₂ = 0"
+  
+  threshold:
+    coherent: "I ≥ 0.8"
+    partial: "0.5 ≤ I < 0.8"
+    incoherent: "I < 0.5"
+
+# ----------------------------------------------------------------------------
+# State Hash (Cryptographic Identity)
+# ----------------------------------------------------------------------------
+
+StateHash:
+  role: "SHA-256 hash of complete state"
+  purpose: "Unique identifier and tamper detection"
+  
+  inputs:
+    - "equilibrium (v* to 10 decimal places)"
+    - "integrityScore (I to 10 decimal places)"
+    - "connectivityMetrics (β₀, β₁, β₂, β₃)"
+    - "timestamp"
+  
+  algorithm: "SHA-256"
+  output: "Hexadecimal string"
+
+# ----------------------------------------------------------------------------
+# Coherence Criterion
+# ----------------------------------------------------------------------------
+
+Coherence:
+  definition: "System (M, v*) is operationally coherent"
+  
+  criterion:
+    boolean: "β₀ = 1 ∧ β₁ = 0 ∧ I ≥ 0.8"
+    
+    meaning:
+      - "β₀ = 1: Single connected component (unified)"
+      - "β₁ = 0: No independent cycles (acyclic)"
+      - "I ≥ 0.8: High integrity across all checks"
+  
+  stability_theorem: |
+    For coherent system with perturbation ||ΔM|| < ε:
+    P(coherence preserved) > 1 - δ
+    for appropriate ε, δ
+  
+  verification:
+    complexity: "O(n²)"
+    deterministic: true
+    cryptographically_provable: true
+
+# ============================================================================
+# UTCF EXECUTION LIFECYCLE
+# ============================================================================
+
+Execution_Lifecycle:
+  role: "State machine for computation"
+  purpose: "Execute transformations with verification"
+  
+  steps:
+    1_Load:
+      action: "Load current state T_n (matrix)"
+      
+    2_Compute:
+      action: "Compute proposed ΔT (transformation)"
+      
+    3_Apply:
+      action: "Apply: T_{n+1} = T_n + ΔT"
+      
+    4_Decompose:
+      action: "Decompose: (S, R, G, C) ← Decompose(T_{n+1})"
+      
+    5_Equilibrium:
+      action: "Compute equilibrium: v* ← PowerIteration(M̂)"
+      
+    6_Integrity:
+      action: "Calculate integrity: I ← IntegrityScore(v*, T_{n+1})"
+      
+    7_Verify:
+      action: "Verify coherence: β₀=1, β₁=0, I≥0.8"
+      
+    8_Commit:
+      action: "If valid → commit + generate proof"
+      else: "If invalid → rollback to T_n"
+  
+  guarantees:
+    - "Atomicity (all-or-nothing)"
+    - "Deterministic convergence"
+    - "Cryptographic auditability"
+    - "Mathematical soundness"
+
+# ============================================================================
+# SYSTEM STATE DEFINITION
+# ============================================================================
+
+SystemState_Complete:
+  definition: |
+    {
+      matrix: M,
+      components: {S, R, G, C},
+      equilibrium: v*,
+      connectivityMetrics: {β₀, β₁, β₂, β₃},
+      integrityScore: I,
+      stateHash: hash,
+      isCoherent: boolean
+    }
+  
+  role: "Execution layer"
+  purpose: "Fast local computation"
+
+---
+
+# ============================================================================
+# BIPARTITE RELATIONSHIP - THE BINDING
+# ============================================================================
+
+Unified_System:
+  architecture: "Bipartite consensus architecture"
+  
+  layers:
+    Execution_Layer:
+      component: "UTCF SystemState"
+      role: "Fast computation"
+      scope: "Local node"
+      output: "New matrix state M_{n+1}"
+      
+    Consensus_Layer:
+      component: "Perceptron State"
+      role: "Cryptographic verification"
+      scope: "Distributed network"
+      output: "Proof S"
+
+# ----------------------------------------------------------------------------
+# Binding Functions (Critical Missing Pieces)
+# ----------------------------------------------------------------------------
+
+Binding_Functions:
+  
+  Generate_Consensus_Proof:
+    signature: "SystemState → PerceptronState"
+    purpose: "Convert execution result to verifiable proof"
+    
+    algorithm: |
+      1. Extract I from SystemState:
+         - Block Design from components
+         - Betti Numbers from connectivity
+         - Schläfli Symbol from matrix
+         - ΔT = M_new - M_old
+      
+      2. Build Hilbert Space H:
+         - Include all basis elements
+         - Add Public_Key from K
+         - Add ΔT as data
+         - Add τ_State
+      
+      3. Generate signature:
+         S = Sign(I, K.Private_Key, τ_State)
+      
+      4. Encode to IPv6:
+         ipv6 = EncodeIPv6(I, S)
+      
+      5. Return PerceptronState: [H,L,K,I,F,T,B,D,S,ipv6,τ]
+  
+  Verify_Consensus_Proof:
+    signature: "(SystemState, PerceptronState) → boolean"
+    purpose: "Verify claimed execution matches proof"
+    
+    algorithm: |
+      1. Verify signature:
+         valid = Verify(S, K.Public_Key, I)
+      
+      2. Check geometric invariants:
+         match = (proof.I.bettiNumbers == state.bettiNumbers)
+              && (proof.I.blockDesign.v == 7)
+              && (proof.I.blockDesign.k == 3)
+      
+      3. Check Hilbert Space compatibility:
+         compatible = CheckSpan(proof.H, state.matrix)
+      
+      4. Check integrity threshold:
+         integrity = (state.integrityScore >= 0.8)
+      
+      5. Return: valid && match && compatible && integrity
+  
+  Extract_Block_Design:
+    signature: "Components → BlockDesign"
+    purpose: "Derive Block Design from UTCF decomposition"
+    
+    algorithm: |
+      1. Analyze connectivity matrix C:
+         v = number of nodes (matrix dimension)
+         k = average degree
+         λ = average shared neighbors
+      
+      2. For Fano plane:
+         return (7, 3, 1, 3, 7)
+      
+      3. For general case:
+         Compute (v, k, λ, r, b) from C structure
+  
+  Encode_IPv6:
+    signature: "(I, S) → IPv6Address"
+    purpose: "Encode geometric invariants and signature to network address"
+    
+    algorithm: |
+      1. Segments 0-6 (Fano encoding):
+         seg[0] = v (7)
+         seg[1] = k (3)
+         seg[2] = λ (1)
+         seg[3] = r (3)
+         seg[4] = b (7)
+         seg[5] = β₀ << 8 | β₁
+         seg[6] = hash(Schläfli) & 0xFFFF
+      
+      2. Segment 7 (Signature):
+         seg[7] = hash(S) & 0xFFFF
+      
+      3. Format:
+         return "seg[0]:seg[1]:seg[2]:seg[3]:seg[4]:seg[5]:seg[6]:seg[7]"
+
+# ----------------------------------------------------------------------------
+# Consensus Protocol
+# ----------------------------------------------------------------------------
+
+Byzantine_Consensus:
+  threshold: ">2N/3 agreement required"
+  fault_tolerance: "f < N/3 Byzantine failures"
+  
+  protocol:
+    1_Proposal:
+      action: "Node proposes (T_n, ΔT)"
+      
+    2_Local_Computation:
+      action: |
+        Each node computes:
+        - T_{n+1} = T_n + ΔT
+        - (S, R, G, C), v*, I, (β₀, β₁)
+        - proof = GenerateConsensusProof(state)
+      
+    3_Broadcast:
+      action: "Send proof to all peers"
+      
+    4_Verification:
+      action: "Compare received proofs"
+      
+    5_Decision:
+      condition: "Accept if >2N/3 proofs match"
+  
+  convergence_theorem: |
+    With f < N/3 failures:
+    P(consensus achieved) > 1 - 2^(-λ)
+    where λ = 256 (SHA-256 bit length)
+  
+  advantages:
+    - "Deterministic (not probabilistic)"
+    - "Mathematically proven"
+    - "Self-verifying"
+
+# ----------------------------------------------------------------------------
+# The Complete Flow
+# ----------------------------------------------------------------------------
+
+Complete_Flow:
+  
+  Forward_Flow:
+    description: "Execution → Proof Generation"
+    steps:
+      - "Input semantic triple"
+      - "UTCF: Compute ΔT"
+      - "UTCF: Apply transformation M_{n+1} = M_n + ΔT"
+      - "UTCF: Decompose to (S,R,G,C)"
+      - "UTCF: Compute v* and I"
+      - "Perceptron: Generate proof S = Sign(I, K, τ)"
+      - "Perceptron: Encode to IPv6"
+      - "Broadcast proof to network"
+  
+  Backward_Flow:
+    description: "Verification → Consensus"
+    steps:
+      - "Receive proof from peer"
+      - "Perceptron: Verify signature"
+      - "Perceptron: Check geometric invariants"
+      - "Perceptron: Verify Hilbert Space compatibility"
+      - "Vote: Valid or Invalid"
+      - "Consensus: Count votes (>2/3 required)"
+      - "If consensus: Accept state"
+      - "If no consensus: Reject state"
+
+# ============================================================================
+# MAPPING SUMMARY
+# ============================================================================
+
+Mapping_Summary:
+  
+  Perceptron_to_UTCF:
+    H: "Provides basis for v* computation"
+    I: "Contains Betti numbers (β₀,β₁) computed by UTCF"
+    S: "Signs hash of UTCF state"
+    τ_State: "Temporal ordering of UTCF states"
+  
+  UTCF_to_Perceptron:
+    M: "Source for ΔT extraction"
+    Components: "Basis for Block Design extraction"
+    Betti_Numbers: "Feed into I for signature"
+    Integrity_Score: "Validates before signing"
+  
+  Critical_Insight:
+    statement: |
+      Perceptron ≠ UTCF
+      Perceptron = Consensus layer (slow, verified, distributed)
+      UTCF = Execution layer (fast, local, computational)
+      Together = Complete Byzantine-tolerant system
