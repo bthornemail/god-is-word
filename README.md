@@ -1,172 +1,109 @@
-# Have You Ever Wondered About God?
+# The 7-Day God Mirror
 
-## Just a Question
+> "If we perceive God as supernatural, we create the boundary that defines our limitlessness."
 
-I'm genuinely asking.
+A client-side journaling application for collective reflection on perception, built with React and a Perceptron-based state machine architecture.
 
-Not trying to convince you of anything. Not selling a belief. Just curious if you've ever stopped and actually thought about it—really thought about it.
+## Features
 
-## Some Questions I Have
+- **7-Day Journal** - Daily reflection entries with semantic triples
+- **Pattern Analysis** - Binomial analysis of life-affirming vs life-denying patterns
+- **Collective View** - Analyze patterns from multiple users via QR code import/export
+- **Perceptron Integration** - AI-driven state machine for knowledge organization
+- **Embeddable Widget** - Standalone widget component for external use
+- **QR Code Support** - Generate and scan QR codes for data sharing
+- **Local-First** - All data stored locally in your browser
 
-**Have you ever wondered what God is?**  
-Not what you were told. Not what you're supposed to think. What do *you* actually think when you hear that word?
+## Quick Start
 
-**Would you want to know what everyone else thinks?**  
-Like, actually know. Not filtered through media or institutions or arguments. Just... what does a person in Japan think? What about someone in Brazil? Your neighbor? A stranger on the other side of the world?
+### Development
 
-**If you could ask the question and get an honest answer—would you ask it?**
+```bash
+# Install dependencies
+npm install
 
-**If someone asked you, would you answer honestly?**  
-Even if your answer was "I don't know" or "nothing" or "I've never thought about it"—would you share that?
+# Start development server
+npm run dev
 
-## What I Can't Figure Out
+# Build for production
+npm run build
 
-Yesterday I asked on Facebook: "What do people who don't believe in God think *about* God?"
+# Preview production build
+npm run preview
+```
 
-Because here's what confuses me—if you don't believe in something, do you still think about it? And if you do think about it, what are you thinking *about*?
+### Usage
 
-Like, I genuinely can't fathom the concept. Not in a judgmental way. In a "I don't understand how that works" way.
+1. Open the application in your browser
+2. Navigate to "Journal" view
+3. Enter your word for "God is _____"
+4. Optionally add reflection content and semantic triples
+5. Save entries for 7 days to see your pattern
+6. View patterns in "Pattern" view
+7. Import/export signatures via QR codes in "Collective" view
 
-Because even "God doesn't exist" is still an answer to "what is God?"  
-Even "I don't believe" is still a relationship to the concept.  
-Even "I've never thought about it" tells me something.
+## Project Structure
 
-## The Bigger Questions
+```
+src/
+├── main.tsx              # Main app entry point
+├── widget.tsx            # Widget entry point
+├── App.tsx               # Main application component
+├── components/           # React components
+├── hooks/                # React hooks
+├── lib/                  # Core libraries
+│   ├── perceptron/      # Perceptron state machine
+│   └── storage/         # Storage adapters
+├── sync/                 # Sync and import/export
+└── workers/              # Web Workers
+```
 
-**What do you think God means?**  
-Anything? Nothing? Something you can't put into words?
+## Widget Embedding
 
-**Does God have meaning?**  
-Or is meaning something we made up?
+The application includes a reusable widget component that can be embedded in other websites.
 
-**If God doesn't have meaning, then what does?**  
-You? Me? Love? Money? Nothing? Everything?
+See [docs/WIDGET.md](./docs/WIDGET.md) for embedding instructions.
 
-**Does meaning even exist?**
+## Documentation
 
-And if it doesn't—why are we asking these questions?  
-And if it does—where does it come from?
+- [Documentation Index](./docs/README.md) - Complete documentation overview
+- [Architecture](./docs/ARCHITECTURE.md) - Technical details and Perceptron system
+- [Widget Guide](./docs/WIDGET.md) - Widget embedding and usage
+- [Deployment](./docs/DEPLOYMENT.md) - Production deployment guide
+- [Test Assessment](./docs/TEST_ASSESSMENT.md) - Code quality report
 
-## What If We Just Asked?
+## Technology Stack
 
-Not as a debate. Not as research. Not to prove anything.
+- **React 19** - UI framework
+- **TypeScript** - Type safety
+- **Vite** - Build tool
+- **Web Workers** - Background computation
+- **IndexedDB** - Client-side storage
+- **BroadcastChannel** - Multi-tab synchronization
+- **Web Crypto API** - Cryptographic operations
 
-Just as a genuine, honest, collective moment of curiosity:
+## Browser Support
 
-**What if everyone on Earth, at the same time, was asked one simple question?**
+- Modern browsers (Chrome, Firefox, Safari, Edge)
+- Requires LocalStorage and IndexedDB support
+- Web Workers required for full functionality
 
-> "God is _____?"
+## Privacy
 
-One word. That's it.
+- All data is stored locally in your browser
+- No server communication
+- Data can be exported/imported via QR codes or JSON files
+- Cryptographic signatures for verification
 
-What would happen?
+## License
 
-Would patterns emerge?  
-Would we see something we've never seen before?  
-Would we learn something about ourselves by seeing what we all think?
+See [LICENSE](./LICENSE) file for details.
 
-## Why I Made This
+## Contributing
 
-I created a tool—a simple app—because I wanted to know the answer.
+This is a client-side application. Contributions welcome via pull requests.
 
-Not *the* answer, like some universal truth handed down from the sky.  
-But *an* answer. The collective answer. The natural image of what humanity actually thinks when we're all honest at the same time.
+## Support
 
-**7 days. 1 word per day. Everyone participates.**
+For questions or issues, please open an issue on GitHub.
 
-No pressure. No judgment. No "right answer."
-
-Just you, at the end of your day, answering honestly:
-
-- Day 1: God is _____?
-- Day 2: God is _____?
-- ...
-- Day 7: God is _____?
-
-Then we look at all the answers together. Not to judge them. But to *see* them.
-
-## What This Isn't
-
-This isn't:
-- A religious movement
-- A way to convert anyone
-- Research for a paper or book
-- A data collection scheme
-- Something you have to believe in to participate
-
-You can think God is real.  
-You can think God is fake.  
-You can think God is a word that doesn't mean anything.  
-You can think you don't know what you think.
-
-**All of those are valid answers.**
-
-## What This Could Be
-
-A mirror.
-
-When billions of people answer the same question honestly, we see something we can't see alone.
-
-Maybe we see that most people think about God the same way.  
-Maybe we see that everyone thinks about it completely differently.  
-Maybe we see patterns we didn't expect.  
-Maybe we see nothing at all.
-
-**But at least we'd know.**
-
-And knowing what we all actually think—not what we're told we think, not what we argue about, not what divides us—but what we *honestly* think?
-
-That feels important.
-
-Or maybe it doesn't. I don't know. That's why I'm asking.
-
-## Would You Participate?
-
-If this existed—if you could answer one word per day for 7 days, completely privately, and then see what everyone else answered (if they chose to share)—would you do it?
-
-Would you be curious?
-
-Would you want to know what your answer is?  
-Would you want to know what everyone else's answer is?
-
-**Would you ask the question if you could have the answer?**
-
-## The Tool Exists
-
-I built it because I needed to know. Not because I have answers. Because I have questions.
-
-It's called **The 7-Day God Mirror**.
-
-- Privacy-first (stored only on your device)
-- One word per day for 7 days
-- Optional sharing via cryptographic signature
-- See patterns emerge when others share their answers
-- No tracking, no accounts, no strings attached
-
-You can use it alone, just for yourself.  
-Or you can share your answers and see the collective pattern.
-
-**It's a question, not a statement.**
-
-## Final Thought
-
-I don't know if finding the answer is important.
-
-But I think *asking the question* might be.
-
-Because whether God exists or not, whether meaning exists or not, whether any of this matters or not—we're still here, asking.
-
-And maybe that's the answer already.  
-Or maybe it's not.  
-
-**But I'd like to know what you think.**
-
----
-
-### If You're Curious
-👉 Try it: [The 7-Day God Mirror](#)  
-💬 Or just tell me: What do you think about God?
-
----
-
-*No pressure. No judgment. Just curiosity.*

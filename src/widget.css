@@ -1,0 +1,19 @@
+/* widget.css - Widget-specific styles for iframe embedding */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  min-height: 100vh;
+}
+
+/* Override for iframe embedding - transparent background */
+iframe body {
+  background: transparent;
+}
+

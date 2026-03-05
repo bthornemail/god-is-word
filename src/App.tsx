@@ -1,19 +1,56 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, Download, BarChart3, Sparkles, Upload, Users, Share2, TrendingUp, MapPin, Shield, Network } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Calendar, Download, BarChart3, Sparkles, Upload, Users, Share2, TrendingUp, Shield, Network, Camera } from 'lucide-react';
 import "./App.css"
-import type { Perceptron, FanoPlane, BlockDesign, binary16, binary32, binary64, binary128, binary256, DecimalSpace } from './perceptron-types';
+import type { Perceptron, FanoPlane, BlockDesign } from './lib/perceptron/types';
+import { usePerceptron } from './hooks/usePerceptron';
+import { ExportManager } from './sync/export-manager';
+import { ImportManager } from './sync/import-manager';
+import { LiveFeed } from './components/LiveFeed';
+import { QRCodeDisplay } from './components/QRCodeDisplay';
+import { QRCodeScanner } from './components/QRCodeScanner';
+import { DailyDashboard } from './components/DailyDashboard';
+import { MqttDiscovery } from './components/MqttDiscovery';
 
 const GodReflectionJournal = () => {
+  interface SemanticTriple {
+    subject: string;
+    predicate: string;
+    object: string;
+  }
+
+  interface TodayEntry {
+    word: string;
+    content: string;
+    type: string;
+    triples: SemanticTriple[];
+  }
+
+  interface CollectiveSignature {
+    type: string;
+    entries: Perceptron[];
+    pattern: { positive: number; negative: number; neutral: number };
+    generated: string;
+    version?: string;
+    signature?: string;
+    cryptoSignature?: string;
+    publicKey?: string;
+    perceptronState?: any;
+  }
+
   const [entries, setEntries] = useState<Perceptron[]>([]);
   const [currentDay, setCurrentDay] = useState(1);
-  const [todayEntry, setTodayEntry] = useState({ word: '', content: '', type: 'text', triples: [] });
+  const [todayEntry, setTodayEntry] = useState<TodayEntry>({ word: '', content: '', type: 'text', triples: [] });
   const [view, setView] = useState('journal');
-  const [collectiveData, setCollectiveData] = useState([]);
-  const [qrDataUrl, setQrDataUrl] = useState('');
-  const [location, setLocation] = useState({ region: '', includeLocation: false });
+  const [collectiveData, setCollectiveData] = useState<CollectiveSignature[]>([]);
+  const [showQRScanner, setShowQRScanner] = useState(false);
+  const [qrExportData, setQrExportData] = useState<any>(null);
   const [privateKey, setPrivateKey] = useState('');
-  const canvasRef = useRef(null);
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Perceptron integration
+  const { perceptronState, isReady, liveEvents, addKnowledge, exportState } = usePerceptron('god-reflection-journal');
+  const exportManager = useRef(new ExportManager());
+  const importManager = useRef(new ImportManager());
 
   useEffect(() => {
     const stored = localStorage.getItem('god_reflections');
@@ -21,23 +58,25 @@ const GodReflectionJournal = () => {
       const parsed = JSON.parse(stored);
       // Migration for old data structure
       if (parsed.entries && parsed.entries.length > 0 && !parsed.entries[0].point) {
-        const migratedEntries = parsed.entries.map(entry => {
+        const migratedEntries = parsed.entries.map((entry: any) => {
           const perceptron = createPerceptron(entry);
           return perceptron;
         });
-        setEntries(migratedEntries);
-        localStorage.setItem('god_reflections', JSON.stringify({ ...parsed, entries: migratedEntries }));
+        Promise.all(migratedEntries).then(entries => {
+          setEntries(entries);
+          localStorage.setItem('god_reflections', JSON.stringify({ ...parsed, entries }));
+        });
       } else {
         setEntries(parsed.entries || []);
       }
       setCurrentDay(parsed.currentDay || 1);
     }
-    
+
     const collective = localStorage.getItem('god_collective');
     if (collective) {
       setCollectiveData(JSON.parse(collective));
     }
-    
+
     // Generate or retrieve private key for signing
     let key = localStorage.getItem('god_private_key');
     if (!key) {
@@ -97,18 +136,6 @@ const GodReflectionJournal = () => {
     return perceptron;
   };
 
-  const signData = async (data: any): Promise<string> => {
-    const message = JSON.stringify(data);
-    const hash = await hashMessage(message + privateKey);
-    return hash;
-  };
-
-  const verifySignature = async (data: any, signature: string): Promise<boolean> => {
-    // For verification, we check if the signature matches any known public key
-    // In a real implementation, this would use proper asymmetric crypto
-    const hash = await hashMessage(JSON.stringify(data) + signature);
-    return hash.length === 64; // Basic validation
-  };
 
   const addTriple = () => {
     setTodayEntry({
@@ -117,7 +144,7 @@ const GodReflectionJournal = () => {
     });
   };
 
-  const updateTriple = (index: number, field: string, value: string) => {
+  const updateTriple = (index: number, field: keyof SemanticTriple, value: string) => {
     const newTriples = [...(todayEntry.triples || [])];
     newTriples[index][field] = value;
     setTodayEntry({ ...todayEntry, triples: newTriples });
@@ -130,18 +157,41 @@ const GodReflectionJournal = () => {
 
   const saveEntry = async () => {
     if (!todayEntry.word.trim()) return;
-    
+
     const newEntryData = {
       word: todayEntry.word,
       content: todayEntry.content,
       triples: (todayEntry.triples || []).filter(t => t.subject || t.predicate || t.object),
     };
 
+    // Create legacy perceptron for backward compatibility
     const newPerceptron = await createPerceptron(newEntryData);
+
+    // Add to Perceptron state machine
+    if (isReady) {
+      try {
+        // Main triple: "God is {word}"
+        await addKnowledge('God', 'is', todayEntry.word, 'MUST');
+
+        // Add content as knowledge if provided
+        if (todayEntry.content.trim()) {
+          await addKnowledge(todayEntry.word, 'hasContent', todayEntry.content.substring(0, 100), 'SHOULD');
+        }
+
+        // Add all triples
+        for (const triple of newEntryData.triples) {
+          if (triple.subject && triple.predicate && triple.object) {
+            await addKnowledge(triple.subject, triple.predicate, triple.object, 'MAY');
+          }
+        }
+      } catch (error) {
+        console.error('[App] Failed to add knowledge to Perceptron:', error);
+      }
+    }
 
     const newEntries = [...entries.filter(e => e.day !== currentDay), newPerceptron];
     setEntries(newEntries);
-    
+
     localStorage.setItem('god_reflections', JSON.stringify({
       entries: newEntries,
       currentDay: currentDay < 7 ? currentDay + 1 : currentDay
@@ -150,141 +200,145 @@ const GodReflectionJournal = () => {
     if (currentDay < 7) {
       setCurrentDay(currentDay + 1);
     }
-    
+
     setTodayEntry({ word: '', content: '', type: 'text', triples: [] });
+
+    // Publish to MQTT if connected (use new entries with the latest entry)
+    if ((window as any).mqttPublishSignature && newEntries.length > 0) {
+      setTimeout(async () => {
+        try {
+          const exportedState = isReady && perceptronState ? await exportState() : null;
+          const data = await exportManager.current.exportSignature(
+            newEntries,
+            analyzeBinomial(),
+            privateKey,
+            exportedState
+          );
+          if ((window as any).mqttPublishSignature) {
+            await (window as any).mqttPublishSignature(data);
+            console.log('[App] Published signature to MQTT');
+          }
+        } catch (err) {
+          console.error('[App] Failed to publish to MQTT:', err);
+        }
+      }, 500); // Small delay to ensure state is updated
+    }
   };
 
-  const generateQRCode = () => {
-    const data = {
-      signature: entries.map(e => e.word).join('-'),
-      entries: entries,
-      pattern: analyzeBinomial(),
-      generated: new Date().toISOString(),
-      version: '2.0.0' // Version bump for new structure
-    };
-    
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    const size = 400;
-    canvas.width = size;
-    canvas.height = size;
-    
-    // Simple QR-like matrix visualization
-    const jsonStr = JSON.stringify(data);
-    const moduleSize = 8;
-    const modules = Math.floor(size / moduleSize);
-    
-    // Create hash-based pattern
-    ctx.fillStyle = '#1e1b4b';
-    ctx.fillRect(0, 0, size, size);
-    
-    for (let i = 0; i < jsonStr.length && i < modules * modules; i++) {
-      const x = (i % modules) * moduleSize;
-      const y = Math.floor(i / modules) * moduleSize;
-      const charCode = jsonStr.charCodeAt(i);
-      
-      if (charCode % 2 === 0) {
-        ctx.fillStyle = '#8b5cf6';
-        ctx.fillRect(x, y, moduleSize - 1, moduleSize - 1);
-      }
+  const generateQRCode = async () => {
+    try {
+      // Export with Perceptron state if available
+      const exportedState = isReady && perceptronState ? await exportState() : null;
+
+      const data = await exportManager.current.exportSignature(
+        entries,
+        analyzeBinomial(),
+        privateKey,
+        exportedState
+      );
+
+      // Store data for QR code display
+      setQrExportData(data);
+      return data;
+    } catch (error) {
+      console.error('[App] Failed to generate QR data:', error);
+      // Fallback to simple data
+      const data = {
+        type: 'god_reflection_signature_perceptron' as const,
+        signature: entries.map(e => e.word).join('-'),
+        entries: entries,
+        pattern: analyzeBinomial(),
+        generated: new Date().toISOString(),
+        version: '2.0.0',
+        publicKey: '',
+        cryptoSignature: '',
+      };
+      setQrExportData(data);
+      return data;
     }
-    
-    // Add signature text in center
-    ctx.fillStyle = 'rgba(30, 27, 75, 0.8)';
-    ctx.fillRect(size * 0.2, size * 0.4, size * 0.6, size * 0.2);
-    ctx.fillStyle = '#fbbf24';
-    ctx.font = 'bold 16px monospace';
-    ctx.textAlign = 'center';
-    ctx.fillText(data.signature.substring(0, 30), size / 2, size / 2);
-    
-    setQrDataUrl(canvas.toDataURL());
   };
 
   const exportAsQR = async () => {
-    const data = {
-      signature: entries.map(e => e.word).join('-'),
-      entries: entries,
-      pattern: analyzeBinomial(),
-      generated: new Date().toISOString(),
-      version: '2.0.0',
-      type: 'god_reflection_signature_perceptron',
-      publicKey: await hashMessage(privateKey) // Public key derived from private
-    };
-    
-    // Sign the data
-    const cryptoSignature = await signData(data);
-    const signedData = { ...data, cryptoSignature };
-    
-    const blob = new Blob([JSON.stringify(signedData, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `god-signature-perceptron-${Date.now()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    try {
+      // Export with Perceptron state if available
+      const exportedState = isReady && perceptronState ? await exportState() : null;
+
+      const data = await exportManager.current.exportSignature(
+        entries,
+        analyzeBinomial(),
+        privateKey,
+        exportedState
+      );
+
+      await exportManager.current.exportAsFile(data);
+    } catch (error) {
+      console.error('[App] Export failed:', error);
+      alert('Failed to export signature. Please try again.');
+    }
   };
 
-  const exportQRImage = () => {
-    if (!qrDataUrl) return;
-    
-    const a = document.createElement('a');
-    a.href = qrDataUrl;
-    a.download = `god-signature-qr-${Date.now()}.png`;
-    a.click();
-  };
 
-  const importSignature = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      try {
-        const imported = JSON.parse(e.target.result as string);
-        
-        if (imported.type === 'god_reflection_signature_perceptron') {
-          if (collectiveData.some(d => d.publicKey === imported.publicKey)) {
-            alert("This signature has already been imported.");
-            return;
-          }
-
-          if (imported.cryptoSignature) {
-            const { cryptoSignature, ...dataToVerify } = imported;
-            const isValid = await verifySignature(dataToVerify, imported.publicKey);
-            imported.verified = isValid;
-          }
-          
-          const newCollective = [...collectiveData, imported];
-          setCollectiveData(newCollective);
-          localStorage.setItem('god_collective', JSON.stringify(newCollective));
-          alert('Successfully imported 1 new signature.');
-
-        } else if (imported.type === 'god_collective_data') {
-          const existingKeys = new Set(collectiveData.map(d => d.publicKey));
-          const newSignatures = imported.data.filter(d => d.publicKey && !existingKeys.has(d.publicKey));
-
-          if (newSignatures.length === 0) {
-            alert("All signatures from this collective file have already been imported.");
-            return;
-          }
-
-          const newCollective = [...collectiveData, ...newSignatures];
-          setCollectiveData(newCollective);
-          localStorage.setItem('god_collective', JSON.stringify(newCollective));
-          alert(`Imported ${newSignatures.length} new signatures from the collective file.`);
-
-        } else {
-          alert("This appears to be an old or invalid signature format.");
-        }
-      } catch (err) {
-        console.error('Invalid signature file', err);
-        alert('The selected file is not a valid signature file.');
+  const processImportedSignature = async (signatureData: any) => {
+    try {
+      // Handle both JSON string and object
+      let parsedData: any;
+      if (typeof signatureData === 'string') {
+        parsedData = JSON.parse(signatureData);
+      } else {
+        parsedData = signatureData;
       }
-    };
-    reader.readAsText(file);
+
+      // If it's already a signature object, use import manager
+      if (parsedData.type === 'god_reflection_signature_perceptron') {
+        const result = await importManager.current.importSignature(
+          new File([JSON.stringify(parsedData)], 'signature.json', { type: 'application/json' })
+        );
+
+        if (!result.success) {
+          alert(result.error || 'Failed to import signature');
+            return;
+          }
+
+        if (!result.signature) {
+          alert('Invalid signature file');
+          return;
+        }
+
+        // Check for duplicates
+        // Convert collectiveData to the format expected by isDuplicate
+        const existingSignatures = collectiveData.map(sig => ({
+          type: sig.type,
+          version: (sig as any).version || '2.0.0',
+          signature: (sig as any).signature || sig.entries?.map((e: any) => e.word).join('-') || '',
+          publicKey: (sig as any).publicKey || ''
+        }));
+        if (importManager.current.isDuplicate(result.signature, existingSignatures as any)) {
+          alert("This signature has already been imported.");
+            return;
+          }
+
+        // Verify geometric invariants if Perceptron state exists
+        if (result.perceptronState) {
+          const isValid = await importManager.current.verifyGeometricInvariants(result.perceptronState);
+          if (!isValid) {
+            console.warn('[App] Geometric verification failed, but importing anyway');
+          }
+        }
+
+        const newCollective: CollectiveSignature[] = [...collectiveData, result.signature as CollectiveSignature];
+          setCollectiveData(newCollective);
+          localStorage.setItem('god_collective', JSON.stringify(newCollective));
+
+        alert(`Successfully imported 1 new signature${result.verified ? ' (verified)' : ''}.`);
+        } else {
+        alert('Invalid signature format');
+      }
+    } catch (error) {
+      console.error('[App] Failed to process signature:', error);
+      alert(`Failed to import signature: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
   };
+
 
   const exportCollectiveData = async () => {
     if (collectiveData.length === 0) {
@@ -292,26 +346,25 @@ const GodReflectionJournal = () => {
       return;
     }
 
-    const dataToExport = {
-      type: 'god_collective_data',
-      version: '1.0.0',
-      generated: new Date().toISOString(),
-      data: collectiveData
-    };
-
-    const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `god-collective-${Date.now()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    try {
+      await exportManager.current.exportCollective(collectiveData);
+    } catch (error) {
+      console.error('[App] Export collective failed:', error);
+      alert('Failed to export collective data. Please try again.');
+    }
   };
 
   const analyzeTripleGraph = () => {
     if (collectiveData.length === 0) return null;
-    
-    const allTriples = [];
+
+    interface TripleData {
+      s: string;
+      p: string;
+      o: string;
+      timestamp: string;
+    }
+
+    const allTriples: TripleData[] = [];
     collectiveData.forEach(d => {
       d.entries.forEach(entry => {
         if (entry.triples) {
@@ -328,13 +381,19 @@ const GodReflectionJournal = () => {
         }
       });
     });
-    
+
     if (allTriples.length === 0) return null;
-    
+
     // Build knowledge graph
-    const nodes = new Set();
-    const edges = [];
-    
+    const nodes = new Set<string>();
+    interface Edge {
+      from: string;
+      to: string;
+      label: string;
+      timestamp: string;
+    }
+    const edges: Edge[] = [];
+
     allTriples.forEach(t => {
       nodes.add(t.s);
       nodes.add(t.o);
@@ -345,32 +404,36 @@ const GodReflectionJournal = () => {
         timestamp: t.timestamp
       });
     });
-    
+
     // Find central concepts (most connected)
-    const nodeConnections = {};
+    const nodeConnections: Record<string, number> = {};
     nodes.forEach(n => nodeConnections[n] = 0);
     edges.forEach(e => {
       nodeConnections[e.from]++;
       nodeConnections[e.to]++;
     });
-    
+
     const centralNodes = Object.entries(nodeConnections)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 10);
-    
+
     // Find common paths (recurring patterns)
-    const pathFreq = {};
+    const pathFreq: Record<string, number> = {};
     allTriples.forEach(t => {
       const path = `${t.s}→${t.p}→${t.o}`;
       pathFreq[path] = (pathFreq[path] || 0) + 1;
     });
-    
+
     const commonPaths = Object.entries(pathFreq)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 10);
-    
+
     // Detect recursive patterns (A→B→A cycles)
-    const cycles = [];
+    interface Cycle {
+      pattern: string;
+      predicates: string[];
+    }
+    const cycles: Cycle[] = [];
     edges.forEach(e1 => {
       edges.forEach(e2 => {
         if (e1.from === e2.to && e1.to === e2.from && e1.from !== e1.to) {
@@ -384,7 +447,7 @@ const GodReflectionJournal = () => {
         }
       });
     });
-    
+
     return {
       totalNodes: nodes.size,
       totalEdges: edges.length,
@@ -397,15 +460,15 @@ const GodReflectionJournal = () => {
 
   const analyzeCollective = () => {
     if (collectiveData.length === 0) return null;
-    
+
     const allWords = collectiveData.flatMap(d => d.entries.map(e => e.word.toLowerCase()));
-    const wordFreq = {};
+    const wordFreq: Record<string, number> = {};
     allWords.forEach(word => {
       wordFreq[word] = (wordFreq[word] || 0) + 1;
     });
-    
+
     const sorted = Object.entries(wordFreq).sort((a, b) => b[1] - a[1]);
-    
+
     let totalPositive = 0, totalNegative = 0, totalNeutral = 0;
     collectiveData.forEach(d => {
       const pattern = d.pattern || analyzeBinomial();
@@ -413,9 +476,9 @@ const GodReflectionJournal = () => {
       totalNegative += pattern.negative;
       totalNeutral += pattern.neutral;
     });
-    
+
     // Extract all triples from all entries
-    const allTriples = [];
+    const allTriples: SemanticTriple[] = [];
     collectiveData.forEach(d => {
       d.entries.forEach(entry => {
         if (entry.triples) {
@@ -427,20 +490,26 @@ const GodReflectionJournal = () => {
         }
       });
     });
-    
+
     // Analyze triple patterns
-    const subjectFreq = {};
-    const predicateFreq = {};
-    const objectFreq = {};
-    
+    const subjectFreq: Record<string, number> = {};
+    const predicateFreq: Record<string, number> = {};
+    const objectFreq: Record<string, number> = {};
+
     allTriples.forEach(t => {
       if (t.subject) subjectFreq[t.subject.toLowerCase()] = (subjectFreq[t.subject.toLowerCase()] || 0) + 1;
       if (t.predicate) predicateFreq[t.predicate.toLowerCase()] = (predicateFreq[t.predicate.toLowerCase()] || 0) + 1;
       if (t.object) objectFreq[t.object.toLowerCase()] = (objectFreq[t.object.toLowerCase()] || 0) + 1;
     });
-    
+
     // Time-series analysis
-    const timeData = {};
+    interface TimeData {
+      positive: number;
+      negative: number;
+      neutral: number;
+      count: number;
+    }
+    const timeData: Record<string, TimeData> = {};
     collectiveData.forEach(d => {
       const date = new Date(d.generated).toISOString().split('T')[0];
       if (!timeData[date]) {
@@ -452,28 +521,25 @@ const GodReflectionJournal = () => {
       timeData[date].neutral += pattern.neutral;
       timeData[date].count += 1;
     });
-    
+
     const sortedDates = Object.keys(timeData).sort();
     const timeSeries = sortedDates.map(date => ({
       date,
       ...timeData[date],
       ratio: timeData[date].positive / (timeData[date].negative || 1)
     }));
-    
+
     // Verification stats
     const verifiedCount = collectiveData.filter(d => d.cryptoSignature).length;
-    
-    // Mock regions data since it's referenced but not implemented
-    const regions = [];
-    
+
     return {
       topWords: sorted.slice(0, 10),
       totalSignatures: collectiveData.length,
       totalEntries: allWords.length,
-      collective: { 
-        positive: totalPositive, 
-        negative: totalNegative, 
-        neutral: totalNeutral 
+      collective: {
+        positive: totalPositive,
+        negative: totalNegative,
+        neutral: totalNeutral
       },
       triples: {
         total: allTriples.length,
@@ -483,7 +549,6 @@ const GodReflectionJournal = () => {
       },
       graph: analyzeTripleGraph(),
       timeSeries,
-      regions,
       verified: verifiedCount,
       verificationRate: collectiveData.length > 0 ? (verifiedCount / collectiveData.length * 100).toFixed(1) : '0.0'
     };
@@ -491,19 +556,19 @@ const GodReflectionJournal = () => {
 
   const analyzeBinomial = () => {
     if (entries.length === 0) return { positive: 0, negative: 0, neutral: 0 };
-    
+
     const positiveWords = ['love', 'light', 'good', 'truth', 'beauty', 'peace', 'joy', 'life', 'everything', 'one', 'infinite', 'eternal', 'creator', 'source'];
     const negativeWords = ['void', 'nothing', 'dead', 'absent', 'fear', 'illusion', 'fake', 'lie', 'control', 'limit'];
-    
+
     let positive = 0, negative = 0, neutral = 0;
-    
+
     entries.forEach(entry => {
       const word = entry.word.toLowerCase();
       if (positiveWords.some(w => word.includes(w))) positive++;
       else if (negativeWords.some(w => word.includes(w))) negative++;
       else neutral++;
     });
-    
+
     return { positive, negative, neutral };
   };
 
@@ -545,12 +610,23 @@ const GodReflectionJournal = () => {
           >
             <Users className="inline w-4 h-4" /> Collective
           </button>
+          <button
+            onClick={() => setView('analytics')}
+            className={`nav-button ${view === 'analytics' ? 'active' : ''}`}
+          >
+            <BarChart3 className="inline w-4 h-4" /> Analytics
+          </button>
+          {liveEvents.length > 0 && (
+            <span className="ml-2 text-xs text-green-400 animate-pulse">
+              {liveEvents.length} updates
+            </span>
+          )}
         </div>
 
         {view === 'journal' && (
           <div className="content-card">
             <h2 className="text-2xl mb-4">Day {currentDay} of 7</h2>
-            
+
             <div className="form-group">
               <label className="form-label">God is _____?</label>
               <input
@@ -586,7 +662,7 @@ const GodReflectionJournal = () => {
               <p className="text-xs text-slate-400 mb-3">
                 Subject-Predicate-Object format. Examples: "I, am, here" or "This, is, beautiful" or "God, lives, everywhere"
               </p>
-              
+
               {(todayEntry.triples || []).map((triple, idx) => (
                 <div key={idx} className="triple-grid">
                   <input
@@ -622,13 +698,20 @@ const GodReflectionJournal = () => {
               ))}
             </div>
 
+            <div className="flex items-center justify-between">
             <button
               onClick={saveEntry}
-              disabled={!todayEntry.word.trim()}
+                disabled={!todayEntry.word.trim() || !isReady}
               className="btn btn-primary"
             >
               Save Day {currentDay}
             </button>
+              {!isReady && (
+                <span className="text-xs text-gray-400">
+                  Initializing Perceptron...
+                </span>
+              )}
+            </div>
           </div>
         )}
 
@@ -637,7 +720,7 @@ const GodReflectionJournal = () => {
             <h2 className="text-2xl mb-4 flex items-center gap-2">
               <BarChart3 /> Binomial Pattern Analysis
             </h2>
-            
+
             {entries.length === 0 ? (
               <p className="text-purple-300">No entries yet. Start journaling to see patterns.</p>
             ) : (
@@ -676,7 +759,7 @@ const GodReflectionJournal = () => {
                 <div className="mb-6">
                   <h3 className="text-xl mb-3">Recursive Reflection</h3>
                   <p className="text-purple-200 leading-relaxed">
-                    Your pattern shows {analyzeBinomial().positive > analyzeBinomial().negative ? 
+                    Your pattern shows {analyzeBinomial().positive > analyzeBinomial().negative ?
                       'a movement toward limitless nature - your perception aligns with expansion' :
                       analyzeBinomial().negative > analyzeBinomial().positive ?
                       'boundaries being explored - your perception is testing limits' :
@@ -684,33 +767,48 @@ const GodReflectionJournal = () => {
                   </p>
                 </div>
 
+                <div className="mb-6 flex gap-4">
                 <button
                   onClick={exportAsQR}
                   className="btn btn-secondary"
                 >
                   <Download className="w-5 h-5" />
-                  Export JSON Signature
+                    Export JSON File
                 </button>
-
-                {qrDataUrl && (
-                  <div className="qr-section">
-                    <h3 className="text-xl mb-3">Your Visual QR Signature</h3>
-                    <div className="bg-slate-900/50 p-4 rounded">
-                      <img src={qrDataUrl} alt="QR Code" className="qr-image" />
-                    </div>
                     <button
-                      onClick={exportQRImage}
-                      className="btn"
+                    onClick={generateQRCode}
+                    className="btn btn-secondary"
                     >
-                      <Share2 className="w-4 h-4" />
-                      Save QR Image
+                    <Share2 className="w-5 h-5" />
+                    Generate QR Code
                     </button>
                   </div>
-                )}
 
-                <canvas ref={canvasRef} style={{ display: 'none' }} />
+                {qrExportData && (
+                  <div className="qr-section">
+                    <QRCodeDisplay
+                      data={qrExportData}
+                      title="Your 7-Day Signature QR Code"
+                      size={300}
+                    />
+                    <p className="text-xs text-gray-400 mt-3 text-center">
+                      Scan this QR code to import your signature on another device
+                    </p>
+                  </div>
+                )}
               </>
             )}
+          </div>
+        )}
+
+        {view === 'analytics' && (
+          <div className="content-card">
+            <DailyDashboard
+              userEntries={entries}
+              collectiveData={collectiveData}
+              currentDay={currentDay}
+              todayEntry={todayEntry}
+            />
           </div>
         )}
 
@@ -718,15 +816,28 @@ const GodReflectionJournal = () => {
           <div className="content-card">
             <h2 className="text-2xl mb-4 flex items-center gap-2">
               <Users /> Collective Analysis
+              {isReady && (
+                <span className="ml-2 text-xs text-green-400 flex items-center gap-1">
+                  <Network className="w-4 h-4" />
+                  <span>Perceptron Active</span>
+                </span>
+              )}
             </h2>
-            
-            <div className="mb-6 flex justify-center gap-4">
+
+            <div className="mb-6 flex justify-center gap-4 flex-wrap">
+              <button
+                onClick={() => setShowQRScanner(true)}
+                className="btn btn-success"
+              >
+                <Camera className="w-5 h-5" />
+                Scan QR Code
+              </button>
               <button
                 onClick={() => fileInputRef.current?.click()}
                 className="btn btn-success"
               >
                 <Upload className="w-5 h-5" />
-                Import Signature(s)
+                Import File
               </button>
               <button
                 onClick={exportCollectiveData}
@@ -737,19 +848,57 @@ const GodReflectionJournal = () => {
               </button>
             </div>
             <p className="text-xs text-slate-400 mt-2 text-center">
-              Import individual or collective signatures to see patterns
+              Scan QR codes or import files to see patterns from others
             </p>
+
+            {/* QR Scanner Modal */}
+            {showQRScanner && (
+              <QRCodeScanner
+                onScan={async (data) => {
+                  await processImportedSignature(data);
+                  setShowQRScanner(false);
+                }}
+                onClose={() => setShowQRScanner(false)}
+              />
+            )}
+
+            {/* Live Feed Component */}
+            {liveEvents.length > 0 && (
+              <div className="mb-6">
+                <LiveFeed
+                  events={liveEvents}
+                  onClear={() => {/* Clear handled by component */}}
+                />
+              </div>
+            )}
+
+            {/* MQTT Discovery Component */}
+            {privateKey && (
+              <div className="mb-6">
+                <MqttDiscovery
+                  publicKey={privateKey}
+                  onImportSignature={async (exportData) => {
+                    await processImportedSignature(exportData);
+                  }}
+                  onPublishRequest={(publishFn) => {
+                    // Store publish function for later use
+                    (window as any).mqttPublishSignature = publishFn;
+                  }}
+                />
+              </div>
+            )}
 
             {collectiveData.length === 0 ? (
               <div className="text-center text-purple-300 py-8">
                 <Users className="w-16 h-16 mx-auto mb-4 opacity-50" />
                 <p>No collective data yet.</p>
-                <p className="text-sm mt-2">Import signatures to analyze the collective consciousness.</p>
+                <p className="text-sm mt-2">Import signatures via QR codes, files, or MQTT discovery to analyze the collective consciousness.</p>
               </div>
             ) : (
               <>
                 {(() => {
                   const analysis = analyzeCollective();
+                  if (!analysis) return null;
                   return (
                     <>
                       <div className="collective-stats">
@@ -821,15 +970,15 @@ const GodReflectionJournal = () => {
                               <div key={idx} className="time-series-item">
                                 <div className="time-date">{day.date}</div>
                                 <div className="time-bar">
-                                  <div 
+                                  <div
                                     className="bg-green-500 h-4 rounded-l"
                                     style={{width: `${(day.positive / day.count) * 100}%`}}
                                   />
-                                  <div 
+                                  <div
                                     className="bg-slate-500 h-4"
                                     style={{width: `${(day.neutral / day.count) * 100}%`}}
                                   />
-                                  <div 
+                                  <div
                                     className="bg-red-500 h-4 rounded-r"
                                     style={{width: `${(day.negative / day.count) * 100}%`}}
                                   />
@@ -856,7 +1005,7 @@ const GodReflectionJournal = () => {
         {view === 'calendar' && (
           <div className="content-card">
             <h2 className="text-2xl mb-4">7-Day Journey</h2>
-            
+
             <div className="calendar-grid">
               {[1, 2, 3, 4, 5, 6, 7].map(day => {
                 const entry = getDayEntry(day);
