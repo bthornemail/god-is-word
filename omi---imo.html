@@ -30,9 +30,7 @@
       padding: 24px;
     }
 
-    omi, imo, omi-surface {
-      display: block;
-    }
+    omi, imo, omi-surface { display: block; }
 
     omi-surface {
       width: min(960px, 100%);
@@ -43,13 +41,8 @@
       overflow: hidden;
     }
 
-    header, main, footer {
-      padding: 28px;
-    }
-
-    header {
-      border-bottom: 1px solid var(--line);
-    }
+    header, main, footer { padding: 28px; }
+    header { border-bottom: 1px solid var(--line); }
 
     h1 {
       margin: 0 0 8px;
@@ -58,12 +51,13 @@
       line-height: 0.9;
     }
 
-    .subtitle {
+    .subtitle, .note {
       color: var(--muted);
-      max-width: 68ch;
       line-height: 1.6;
-      font-size: 1.05rem;
     }
+
+    .subtitle { max-width: 72ch; font-size: 1.05rem; }
+    .note { font-size: 0.95rem; }
 
     .doctrine {
       margin-top: 18px;
@@ -90,7 +84,7 @@
       font-size: 0.9rem;
     }
 
-    input {
+    input, textarea {
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 12px;
@@ -100,7 +94,9 @@
       font-size: 1rem;
     }
 
-    input:focus {
+    textarea { min-height: 120px; resize: vertical; }
+
+    input:focus, textarea:focus {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
     }
@@ -126,13 +122,15 @@
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
-      margin-bottom: 20px;
+      margin: 20px 0;
     }
 
-    .note {
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 0.95rem;
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 18px;
+      background: #08131a;
     }
 
     pre {
@@ -157,17 +155,18 @@
   </style>
 </head>
 <body>
-  <omi-surface id="omi-god-is-word-surface" data-omi="god-is-word" data-mode="local-first">
+  <omi-surface id="omi-god-is-word-surface" data-omi="god-is-word" data-mode="local-first" data-testimony-trustees="v1">
     <omi id="omi-god-is-word" data-omi="god-is-word">
       <header>
         <h1>God is _____?</h1>
         <p class="subtitle">
-          This is a self-contained <strong>omi---imo</strong> surface: the question opens, the private interior holds your answers, and the boundary closes without sending anything anywhere by default.
+          This is a self-contained <strong>omi---imo</strong> surface: the question opens, the private interior holds your answers, and the boundary closes without sending anything anywhere by default. It can also import and export <strong>testimony-trustees</strong> testimonial bundles as consent-bound receipt objects.
         </p>
         <div class="doctrine">omi opens.
 --- holds the private interior.
 imo closes.
-Export only by choice.</div>
+Testimonials import by choice.
+Receipts export by choice.</div>
       </header>
 
       <main>
@@ -185,14 +184,24 @@ Export only by choice.</div>
           <label>Day 7<input maxlength="64" data-day="7" placeholder="word" /></label>
         </section>
 
+        <section class="panel" aria-label="Optional testimonial">
+          <label>
+            Optional testimony / context
+            <textarea id="testimonial" placeholder="A private note, testimony, or context statement. Exporting remains your choice."></textarea>
+          </label>
+        </section>
+
         <div class="actions">
           <button class="primary" id="save">Save locally</button>
           <button id="export">Export receipt JSON</button>
+          <button id="exportTrustees">Export testimony-trustees JSON</button>
+          <button id="importTrustees">Import testimony-trustees JSON</button>
           <button id="clear">Clear local answers</button>
+          <input id="importFile" type="file" accept="application/json,.json" hidden />
         </div>
 
         <p class="note">
-          This export is a receipt candidate, not a command to publish. Sharing remains your choice.
+          Import accepts either a full <code>testimony_trustees_v1</code> bundle, a previous <code>god-is-word</code> receipt JSON, or a plain array of testimonial objects. Import never publishes; it only fills this local surface.
         </p>
 
         <pre id="receipt" aria-live="polite">No receipt exported yet.</pre>
@@ -200,16 +209,18 @@ Export only by choice.</div>
 
       <footer>
         <imo id="imo-god-is-word" data-imo="god-is-word">
-          The surface closes here. The page does not require a server, account, tracker, or network call. Download it, fork it, inspect it, translate it, or self-host it.
+          The surface closes here. The page does not require a server, account, tracker, or network call. Download it, fork it, inspect it, translate it, self-host it, or use it as a consent-bound import/export bridge for testimony-trustees bundles.
         </imo>
       </footer>
     </omi>
   </omi-surface>
 
   <script>
-    const key = "god-is-word:omi---imo:v1";
+    const key = "god-is-word:omi---imo:v2";
     const inputs = [...document.querySelectorAll("input[data-day]")];
+    const testimonial = document.getElementById("testimonial");
     const receipt = document.getElementById("receipt");
+    const importFile = document.getElementById("importFile");
 
     function readAnswers() {
       return inputs.map(input => ({
@@ -221,9 +232,23 @@ Export only by choice.</div>
 
     function writeAnswers(answers) {
       for (const item of answers || []) {
-        const input = inputs.find(el => Number(el.dataset.day) === item.day);
-        if (input) input.value = item.answer || "";
+        const day = Number(item.day || item.index || item.day_number);
+        const value = item.answer || item.word || item.value || "";
+        const input = inputs.find(el => Number(el.dataset.day) === day);
+        if (input) input.value = String(value).trim();
       }
+    }
+
+    function readTestimony() {
+      return testimonial.value.trim();
+    }
+
+    function writeTestimony(value) {
+      testimonial.value = value || "";
+    }
+
+    function activeAnswers() {
+      return readAnswers().filter(item => item.answer.length > 0);
     }
 
     function buildReceipt() {
@@ -231,6 +256,7 @@ Export only by choice.</div>
         omi: "god-is-word",
         surface: "omi---imo",
         mode: "local-first",
+        schema: "god_is_word_receipt_v1",
         question: "God is _____?",
         doctrine: [
           "The question opens.",
@@ -240,6 +266,7 @@ Export only by choice.</div>
           "The commons remembers only what was freely given."
         ],
         answers: readAnswers(),
+        testimony: readTestimony(),
         created_at: new Date().toISOString(),
         consent: {
           stored_locally: true,
@@ -249,40 +276,122 @@ Export only by choice.</div>
       };
     }
 
-    function save() {
-      localStorage.setItem(key, JSON.stringify({ answers: readAnswers() }));
-      receipt.textContent = "Saved locally. Nothing was sent.";
+    function buildTrusteesBundle() {
+      const now = new Date().toISOString();
+      return {
+        schema: "testimony_trustees_v1",
+        omi: "god-is-word",
+        surface: "omi---imo",
+        source: "god-is-word/omi---imo.html",
+        exported_at: now,
+        consent: {
+          imported_by_choice: false,
+          exported_by_choice: true,
+          published: false,
+          local_first: true
+        },
+        testimonials: [
+          {
+            id: "god-is-word-" + Date.now().toString(36),
+            kind: "seven_day_god_mirror",
+            question: "God is _____?",
+            testimony: readTestimony(),
+            answers: activeAnswers(),
+            created_at: now,
+            receipt: {
+              surface: "omi---imo",
+              boundary: "local_browser_storage_or_user_selected_export",
+              accepted_by: "user_export_action"
+            }
+          }
+        ]
+      };
     }
 
-    function exportReceipt() {
-      const data = buildReceipt();
+    function downloadJson(data, filename) {
       const text = JSON.stringify(data, null, 2);
       receipt.textContent = text;
-
       const blob = new Blob([text], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "god-is-word-omi---imo-receipt.json";
+      a.download = filename;
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
     }
 
+    function save() {
+      localStorage.setItem(key, JSON.stringify({ answers: readAnswers(), testimony: readTestimony() }));
+      receipt.textContent = "Saved locally. Nothing was sent.";
+    }
+
+    function exportReceipt() {
+      downloadJson(buildReceipt(), "god-is-word-omi---imo-receipt.json");
+    }
+
+    function exportTrustees() {
+      downloadJson(buildTrusteesBundle(), "god-is-word-testimony-trustees.json");
+    }
+
+    function normalizeImportedTestimonials(data) {
+      if (Array.isArray(data)) return data;
+      if (Array.isArray(data.testimonials)) return data.testimonials;
+      if (Array.isArray(data.answers) || data.testimony) return [data];
+      throw new Error("No testimonials or answers found in imported JSON.");
+    }
+
+    function importTrusteesData(data) {
+      const testimonials = normalizeImportedTestimonials(data);
+      const first = testimonials[0] || {};
+
+      if (Array.isArray(first.answers)) writeAnswers(first.answers);
+      else if (Array.isArray(data.answers)) writeAnswers(data.answers);
+
+      writeTestimony(first.testimony || data.testimony || "");
+      save();
+
+      receipt.textContent = JSON.stringify({
+        imported: true,
+        schema: data.schema || "unknown_json",
+        testimonials_loaded: testimonials.length,
+        note: "Imported locally only. Nothing was published."
+      }, null, 2);
+    }
+
     function clearLocal() {
       localStorage.removeItem(key);
       for (const input of inputs) input.value = "";
-      receipt.textContent = "Local answers cleared.";
+      writeTestimony("");
+      receipt.textContent = "Local answers and testimony cleared.";
     }
 
     document.getElementById("save").addEventListener("click", save);
     document.getElementById("export").addEventListener("click", exportReceipt);
+    document.getElementById("exportTrustees").addEventListener("click", exportTrustees);
+    document.getElementById("importTrustees").addEventListener("click", () => importFile.click());
     document.getElementById("clear").addEventListener("click", clearLocal);
+
+    importFile.addEventListener("change", async event => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        importTrusteesData(JSON.parse(text));
+      } catch (error) {
+        receipt.textContent = "Import failed: " + error.message;
+      } finally {
+        importFile.value = "";
+      }
+    });
 
     try {
       const saved = JSON.parse(localStorage.getItem(key) || "null");
-      if (saved) writeAnswers(saved.answers);
+      if (saved) {
+        writeAnswers(saved.answers);
+        writeTestimony(saved.testimony);
+      }
     } catch {}
   </script>
 </body>
