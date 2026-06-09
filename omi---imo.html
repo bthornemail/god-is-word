@@ -33,7 +33,7 @@
     omi, imo, omi-surface { display: block; }
 
     omi-surface {
-      width: min(960px, 100%);
+      width: min(1040px, 100%);
       border: 1px solid var(--line);
       border-radius: 28px;
       background: rgba(16, 27, 35, 0.92);
@@ -51,12 +51,10 @@
       line-height: 0.9;
     }
 
-    .subtitle, .note {
-      color: var(--muted);
-      line-height: 1.6;
-    }
+    h2 { margin: 0 0 12px; }
 
-    .subtitle { max-width: 72ch; font-size: 1.05rem; }
+    .subtitle, .note { color: var(--muted); line-height: 1.6; }
+    .subtitle { max-width: 76ch; font-size: 1.05rem; }
     .note { font-size: 0.95rem; }
 
     .doctrine {
@@ -77,14 +75,35 @@
       margin: 24px 0;
     }
 
-    label {
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .epistemic {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    label, .card {
       display: grid;
       gap: 8px;
       color: var(--muted);
       font-size: 0.9rem;
     }
 
-    input, textarea {
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      background: #071015;
+    }
+
+    .card strong { color: var(--text); }
+
+    input, textarea, select {
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 12px;
@@ -96,7 +115,7 @@
 
     textarea { min-height: 120px; resize: vertical; }
 
-    input:focus, textarea:focus {
+    input:focus, textarea:focus, select:focus {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
     }
@@ -148,8 +167,8 @@
       line-height: 1.6;
     }
 
-    @media (max-width: 760px) {
-      .grid { grid-template-columns: 1fr; }
+    @media (max-width: 900px) {
+      .grid, .principles, .epistemic { grid-template-columns: 1fr; }
       header, main, footer { padding: 20px; }
     }
   </style>
@@ -160,19 +179,19 @@
       <header>
         <h1>God is _____?</h1>
         <p class="subtitle">
-          This is a self-contained <strong>omi---imo</strong> surface: the question opens, the private interior holds your answers, and the boundary closes without sending anything anywhere by default. It can also import and export <strong>testimony-trustees</strong> testimonial bundles as consent-bound receipt objects.
+          This is a self-contained <strong>omi---imo</strong> surface: the question opens, the private interior holds your answers, and the boundary closes without sending anything anywhere by default. It can import and export <strong>testimony-trustees</strong> bundles as consent-bound receipt objects, mapped to collaboration principles and an epistemic quadrant.
         </p>
         <div class="doctrine">omi opens.
 --- holds the private interior.
 imo closes.
+Principles orient.
+Epistemic quadrant contextualizes.
 Testimonials import by choice.
 Receipts export by choice.</div>
       </header>
 
       <main>
-        <p class="note">
-          One word per day for seven days. Your answers are stored only in this browser's local storage unless you choose to export them.
-        </p>
+        <p class="note">One word per day for seven days. Your answers are stored only in this browser's local storage unless you choose to export them.</p>
 
         <section class="grid" aria-label="Seven day answers">
           <label>Day 1<input maxlength="64" data-day="1" placeholder="word" /></label>
@@ -191,6 +210,36 @@ Receipts export by choice.</div>
           </label>
         </section>
 
+        <section class="panel" aria-label="Epistemic quadrant">
+          <h2>Epistemic quadrant</h2>
+          <p class="note">This does not judge your answer. It only lets you name the state from which the testimony is offered.</p>
+          <label>
+            How does this answer feel right now?
+            <select id="epistemicQuadrant">
+              <option value="known_knowns">Known knowns — certainty</option>
+              <option value="known_unknowns">Known unknowns — question</option>
+              <option value="unknown_knowns">Unknown knowns — intuition</option>
+              <option value="unknown_unknowns">Unknown unknowns — mystery</option>
+            </select>
+          </label>
+          <div class="epistemic" aria-hidden="true">
+            <div class="card"><strong>Known knowns</strong><span>Certainty: what I believe or know I mean.</span></div>
+            <div class="card"><strong>Known unknowns</strong><span>Question: what I know I do not know.</span></div>
+            <div class="card"><strong>Unknown knowns</strong><span>Intuition: what I recognize but cannot fully explain.</span></div>
+            <div class="card"><strong>Unknown unknowns</strong><span>Mystery: what remains unnamed, silent, or beyond me.</span></div>
+          </div>
+        </section>
+
+        <section class="panel" aria-label="Collaboration principles">
+          <h2>Collaboration principles</h2>
+          <p class="note">These are exported with testimony as public orientation metadata.</p>
+          <div class="principles">
+            <div class="card"><strong>Boundary</strong><span>Freedom, Autonomy, Sovereignty, Reciprocity</span></div>
+            <div class="card"><strong>Compass</strong><span>Focus, Attention, Observation, Experience</span></div>
+            <div class="card"><strong>Interaction</strong><span>Interrupt, Intent, Declaration, Consideration</span></div>
+          </div>
+        </section>
+
         <div class="actions">
           <button class="primary" id="save">Save locally</button>
           <button id="export">Export receipt JSON</button>
@@ -200,9 +249,7 @@ Receipts export by choice.</div>
           <input id="importFile" type="file" accept="application/json,.json" hidden />
         </div>
 
-        <p class="note">
-          Import accepts either a full <code>testimony_trustees_v1</code> bundle, a previous <code>god-is-word</code> receipt JSON, or a plain array of testimonial objects. Import never publishes; it only fills this local surface.
-        </p>
+        <p class="note">Import accepts either a full <code>testimony_trustees_v1</code> bundle, a previous <code>god-is-word</code> receipt JSON, or a plain array of testimonial objects. Import never publishes; it only fills this local surface.</p>
 
         <pre id="receipt" aria-live="polite">No receipt exported yet.</pre>
       </main>
@@ -216,11 +263,41 @@ Receipts export by choice.</div>
   </omi-surface>
 
   <script>
-    const key = "god-is-word:omi---imo:v2";
+    const key = "god-is-word:omi---imo:v3";
     const inputs = [...document.querySelectorAll("input[data-day]")];
     const testimonial = document.getElementById("testimonial");
+    const epistemicQuadrant = document.getElementById("epistemicQuadrant");
     const receipt = document.getElementById("receipt");
     const importFile = document.getElementById("importFile");
+
+    const collaborationPrinciples = {
+      boundary: ["Freedom", "Autonomy", "Sovereignty", "Reciprocity"],
+      compass: ["Focus", "Attention", "Observation", "Experience"],
+      interaction: ["Interrupt", "Intent", "Declaration", "Consideration"]
+    };
+
+    const epistemicTable = {
+      known_knowns: {
+        name: "Known knowns",
+        mode: "Certainty",
+        meaning: "This is what I believe or know I mean."
+      },
+      known_unknowns: {
+        name: "Known unknowns",
+        mode: "Question",
+        meaning: "I know what I do not know."
+      },
+      unknown_knowns: {
+        name: "Unknown knowns",
+        mode: "Intuition",
+        meaning: "Something in me recognizes this, but I cannot fully explain it."
+      },
+      unknown_unknowns: {
+        name: "Unknown unknowns",
+        mode: "Mystery",
+        meaning: "I do not know what I do not know."
+      }
+    };
 
     function readAnswers() {
       return inputs.map(input => ({
@@ -239,16 +316,18 @@ Receipts export by choice.</div>
       }
     }
 
-    function readTestimony() {
-      return testimonial.value.trim();
+    function readTestimony() { return testimonial.value.trim(); }
+    function writeTestimony(value) { testimonial.value = value || ""; }
+    function activeAnswers() { return readAnswers().filter(item => item.answer.length > 0); }
+
+    function readEpistemic() {
+      const key = epistemicQuadrant.value;
+      return { key, ...epistemicTable[key] };
     }
 
-    function writeTestimony(value) {
-      testimonial.value = value || "";
-    }
-
-    function activeAnswers() {
-      return readAnswers().filter(item => item.answer.length > 0);
+    function writeEpistemic(value) {
+      const key = typeof value === "string" ? value : value && value.key;
+      if (key && epistemicTable[key]) epistemicQuadrant.value = key;
     }
 
     function buildReceipt() {
@@ -256,8 +335,11 @@ Receipts export by choice.</div>
         omi: "god-is-word",
         surface: "omi---imo",
         mode: "local-first",
-        schema: "god_is_word_receipt_v1",
+        schema: "god_is_word_receipt_v2",
         question: "God is _____?",
+        collaboration_principles: collaborationPrinciples,
+        epistemic_table: epistemicTable,
+        epistemic_quadrant: readEpistemic(),
         doctrine: [
           "The question opens.",
           "The person answers.",
@@ -284,6 +366,8 @@ Receipts export by choice.</div>
         surface: "omi---imo",
         source: "god-is-word/omi---imo.html",
         exported_at: now,
+        collaboration_principles: collaborationPrinciples,
+        epistemic_table: epistemicTable,
         consent: {
           imported_by_choice: false,
           exported_by_choice: true,
@@ -297,6 +381,8 @@ Receipts export by choice.</div>
             question: "God is _____?",
             testimony: readTestimony(),
             answers: activeAnswers(),
+            epistemic_quadrant: readEpistemic(),
+            collaboration_principles: collaborationPrinciples,
             created_at: now,
             receipt: {
               surface: "omi---imo",
@@ -323,17 +409,16 @@ Receipts export by choice.</div>
     }
 
     function save() {
-      localStorage.setItem(key, JSON.stringify({ answers: readAnswers(), testimony: readTestimony() }));
+      localStorage.setItem(key, JSON.stringify({
+        answers: readAnswers(),
+        testimony: readTestimony(),
+        epistemic_quadrant: readEpistemic()
+      }));
       receipt.textContent = "Saved locally. Nothing was sent.";
     }
 
-    function exportReceipt() {
-      downloadJson(buildReceipt(), "god-is-word-omi---imo-receipt.json");
-    }
-
-    function exportTrustees() {
-      downloadJson(buildTrusteesBundle(), "god-is-word-testimony-trustees.json");
-    }
+    function exportReceipt() { downloadJson(buildReceipt(), "god-is-word-omi---imo-receipt.json"); }
+    function exportTrustees() { downloadJson(buildTrusteesBundle(), "god-is-word-testimony-trustees.json"); }
 
     function normalizeImportedTestimonials(data) {
       if (Array.isArray(data)) return data;
@@ -350,12 +435,15 @@ Receipts export by choice.</div>
       else if (Array.isArray(data.answers)) writeAnswers(data.answers);
 
       writeTestimony(first.testimony || data.testimony || "");
+      writeEpistemic(first.epistemic_quadrant || data.epistemic_quadrant || "");
       save();
 
       receipt.textContent = JSON.stringify({
         imported: true,
         schema: data.schema || "unknown_json",
         testimonials_loaded: testimonials.length,
+        includes_collaboration_principles: Boolean(data.collaboration_principles || first.collaboration_principles),
+        includes_epistemic_quadrant: Boolean(data.epistemic_quadrant || first.epistemic_quadrant),
         note: "Imported locally only. Nothing was published."
       }, null, 2);
     }
@@ -364,6 +452,7 @@ Receipts export by choice.</div>
       localStorage.removeItem(key);
       for (const input of inputs) input.value = "";
       writeTestimony("");
+      epistemicQuadrant.value = "known_knowns";
       receipt.textContent = "Local answers and testimony cleared.";
     }
 
@@ -391,6 +480,7 @@ Receipts export by choice.</div>
       if (saved) {
         writeAnswers(saved.answers);
         writeTestimony(saved.testimony);
+        writeEpistemic(saved.epistemic_quadrant);
       }
     } catch {}
   </script>
