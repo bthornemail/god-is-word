@@ -15,8 +15,8 @@ As a question.
 
 A simple, honest, human question.
 
-What does that word mean to you?
-What happens when different people answer honestly?
+What does that word mean to you?  
+What happens when different people answer honestly?  
 What can we learn when the answer is not forced, ranked, sold, or captured?
 
 This repository is my personal approach to that question.
@@ -51,8 +51,6 @@ Including me.
 
 In this repository, `omi---imo` is the self-enclosed surface of the question.
 
-It means:
-
 ```text
 omi opens the question.
 --- holds the private interior.
@@ -84,31 +82,107 @@ The commons remembers only what was freely given.
 
 ---
 
-# The Core Personal Claim
+# Collaboration Principles
 
-We do not need to declare final truth in order to build something meaningful.
+This project should be guided by public collaboration principles.
 
-We can declare boundaries.
-We can define constraints.
-We can ask honest questions.
-We can accept only what people choose to share.
-We can preserve consent.
-We can make the process inspectable.
+They are not slogans. They are constraints for the surface.
 
-In this project, the answer is not the product.
+## Public Boundary Principles
 
-The question is the opening.
-The boundary is the protection.
-The receipt is the record of what was willingly offered.
+```text
+Freedom
+Autonomy
+Sovereignty
+Reciprocity
+```
+
+These protect the person standing before the mirror.
+
+- **Freedom** means nobody is required to answer.
+- **Autonomy** means the answer belongs first to the person who gives it.
+- **Sovereignty** means a person may keep, export, refuse, delete, or withhold their answer.
+- **Reciprocity** means shared testimony should not become extraction.
+
+## Compass Principles
+
+```text
+Focus
+Attention
+Observation
+Experience
+```
+
+These guide how the mirror is used.
+
+- **Focus** centers the question.
+- **Attention** follows the person’s chosen answer.
+- **Observation** witnesses without forcing belief.
+- **Experience** remembers only what was freely given.
+
+## Interaction Principles
+
+```text
+Interrupt
+Intent
+Declaration
+Consideration
+```
+
+These preserve consent during interaction.
+
+- **Interrupt** means a person may stop.
+- **Intent** means participation should be deliberate.
+- **Declaration** means an answer is offered, not taken.
+- **Consideration** means the system must treat testimony with care.
 
 Short doctrine:
 
 ```text
-We do not declare truth.
-We ask the question.
-We define the boundary.
-We preserve consent.
-We accept only what is given.
+Freedom protects entry.
+Autonomy protects agency.
+Sovereignty protects refusal.
+Reciprocity protects sharing.
+
+Focus centers.
+Attention follows.
+Observation witnesses.
+Experience remembers.
+
+Interrupt stops.
+Intent chooses.
+Declaration offers.
+Consideration receives.
+```
+
+---
+
+# The Epistemic Table
+
+The God Mirror should not force every answer into certainty.
+
+A person may know, question, intuit, or not know.
+
+The surface therefore maps testimony into four epistemic quadrants:
+
+| Quadrant | Name | Meaning in this project | Respectful handling |
+|---|---|---|---|
+| Known knowns | Certainty | “This is what I believe or know I mean.” | Preserve as declared testimony. |
+| Known unknowns | Question | “I know what I do not know.” | Preserve as open inquiry. |
+| Unknown knowns | Intuition | “Something in me recognizes this, but I cannot fully explain it.” | Preserve as intuition without forcing proof. |
+| Unknown unknowns | Mystery | “I do not know what I do not know.” | Preserve silence, refusal, wonder, or absence. |
+
+This matters because the question **“God is _____?”** may produce belief, disbelief, uncertainty, silence, intuition, refusal, or mystery.
+
+All of those are valid testimony states.
+
+Short doctrine:
+
+```text
+Certainty may speak.
+Question may remain open.
+Intuition may be witnessed.
+Mystery may stay unnamed.
 ```
 
 ---
@@ -189,7 +263,7 @@ The point is honest participation under consent.
 
 # The Self-Enclosed Surface
 
-This repository now includes a starter single-file surface:
+This repository includes a starter single-file surface:
 
 ```text
 omi---imo.html
@@ -202,6 +276,7 @@ one local page
 one question surface
 one private seven-day mirror
 one exportable receipt object
+one testimony-trustees import/export bridge
 no backend required
 no account required
 no tracking required
@@ -211,7 +286,7 @@ The surface is intentionally simple.
 
 It is a personal `omi---imo` object, not a platform.
 
-It opens with the question, keeps the answers local, and lets the person export only what they choose.
+It opens with the question, keeps the answers local, maps testimony to the collaboration principles and epistemic table, and lets the person export only what they choose.
 
 The browser page is a projection.
 
@@ -232,6 +307,38 @@ No answer becomes public by default.
 
 ---
 
+# Testimony Trustees
+
+The surface can import and export testimony trustee bundles.
+
+The bundle is consent-bound.
+
+It should include:
+
+```text
+answers
+testimony
+collaboration principles
+epistemic quadrant
+receipt boundary
+export consent
+```
+
+A testimony trustee does not own the testimony.
+
+A trustee only helps carry, preserve, translate, or witness what was freely given.
+
+Short doctrine:
+
+```text
+Testimony is offered.
+Trustees carry.
+Receipts bound.
+Consent governs.
+```
+
+---
+
 # What This Is
 
 This is:
@@ -246,17 +353,7 @@ This is:
 - a public attempt to keep this idea open before it is enclosed
 - a self-contained `omi---imo` surface for one bounded question
 
-This can become software.
-
-It can become a ritual.
-
-It can become a classroom exercise.
-
-It can become a local community mirror.
-
-It can become a self-hosted site.
-
-It can become an open protocol for collective meaning without central ownership.
+This can become software, a ritual, a classroom exercise, a local community mirror, a self-hosted site, or an open protocol for collective meaning without central ownership.
 
 ---
 
@@ -364,18 +461,7 @@ spiritual humility
 technical honesty
 ```
 
-You can help by:
-
-- improving the wording
-- building the local-first app
-- reviewing privacy boundaries
-- designing the self-hosted sharing flow
-- writing documentation
-- translating the question
-- testing the 7-day mirror
-- making the interface more humane
-- challenging assumptions
-- keeping the project from becoming extractive
+You can help by improving the wording, building the local-first app, reviewing privacy boundaries, designing the self-hosted sharing flow, writing documentation, translating the question, testing the 7-day mirror, making the interface more humane, challenging assumptions, or keeping the project from becoming extractive.
 
 You do not need to agree with me.
 
@@ -398,6 +484,9 @@ The tool should support:
 
 - local-only answers by default
 - optional export
+- optional testimony-trustees import/export
+- collaboration principle metadata
+- epistemic quadrant metadata
 - optional cryptographic signing later
 - optional anonymous or pseudonymous sharing later
 - no required account
