@@ -1,14 +1,14 @@
 # God Is Word
 
-## A Personal Invitation to Ask the Question Before It Is Owned
+## A Personal `omi---imo` Surface for the 7-Day God Mirror
 
 This project began with a question:
 
 > **God is _____?**
 
-Not as a doctrine.
-Not as a conversion attempt.
-Not as a debate.
+Not as a doctrine.  
+Not as a conversion attempt.  
+Not as a debate.  
 Not as a data-harvesting campaign.
 
 As a question.
@@ -21,22 +21,66 @@ What can we learn when the answer is not forced, ranked, sold, or captured?
 
 This repository is my personal approach to that question.
 
-It is separate from the broader canonical OMI protocol work, but it comes from the same concern: the next generation of digital systems will define more and more of the boundary between human life, analog environments, machines, meaning, and memory.
+It is separate from the broader canonical OMI protocol work. The canonical approach defines the public protocol language of bounded declarations, constraints, traversals, and receipts. This repository is the personal surface: a small, self-hosted, self-contained `omi---imo` mirror for one question and one consent boundary.
 
-If regular people do not help define those boundaries first, they will be defined for us.
+The canonical approach says:
 
-By platforms.
-By corporations.
-By millionaires.
-By private clouds.
-By systems that turn meaning into revenue before people understand what has been taken.
+```text
+We do not declare truth.
+We define boundaries.
+We define constraints.
+We validate traversals.
+We accept receipts.
+```
 
-I do not want this question, or the framework around it, to become one more private enclosure.
+The personal approach says:
 
-I do not want to possess it alone.
+```text
+I do not own the answer.
+I ask the question.
+I protect the boundary.
+I accept only what is freely given.
+```
 
-This is too powerful for one person.
+This is too powerful for one person to possess.
 Including me.
+
+---
+
+# What `omi---imo` Means Here
+
+In this repository, `omi---imo` is the self-enclosed surface of the question.
+
+It means:
+
+```text
+omi opens the question.
+--- holds the private interior.
+imo closes the surface.
+```
+
+The surface is not a claim of truth.
+
+It is a bounded place where a person can answer honestly, privately, and voluntarily.
+
+For this project:
+
+```text
+OMI = the opening of the question
+INTERIOR = the private answer space
+IMO = the closing boundary
+RECEIPT = the record of what the person chose to keep or share
+```
+
+Short doctrine:
+
+```text
+The question opens.
+The person answers.
+The boundary protects.
+The mirror reflects.
+The commons remembers only what was freely given.
+```
 
 ---
 
@@ -54,9 +98,7 @@ We can make the process inspectable.
 In this project, the answer is not the product.
 
 The question is the opening.
-
 The boundary is the protection.
-
 The receipt is the record of what was willingly offered.
 
 Short doctrine:
@@ -145,6 +187,51 @@ The point is honest participation under consent.
 
 ---
 
+# The Self-Enclosed Surface
+
+This repository now includes a starter single-file surface:
+
+```text
+omi---imo.html
+```
+
+It is meant to work as:
+
+```text
+one local page
+one question surface
+one private seven-day mirror
+one exportable receipt object
+no backend required
+no account required
+no tracking required
+```
+
+The surface is intentionally simple.
+
+It is a personal `omi---imo` object, not a platform.
+
+It opens with the question, keeps the answers local, and lets the person export only what they choose.
+
+The browser page is a projection.
+
+The stored answers are private context.
+
+The export is a receipt candidate.
+
+Sharing remains a choice.
+
+Short doctrine:
+
+```text
+Local first.
+Consent first.
+Export only by choice.
+No answer becomes public by default.
+```
+
+---
+
 # What This Is
 
 This is:
@@ -157,6 +244,7 @@ This is:
 - a way to see patterns without forcing belief
 - a request for collaboration
 - a public attempt to keep this idea open before it is enclosed
+- a self-contained `omi---imo` surface for one bounded question
 
 This can become software.
 
@@ -306,12 +394,12 @@ Do not own what belongs to everyone.
 
 # Possible Technical Direction
 
-The tool should eventually support:
+The tool should support:
 
 - local-only answers by default
 - optional export
-- optional cryptographic signing
-- optional anonymous or pseudonymous sharing
+- optional cryptographic signing later
+- optional anonymous or pseudonymous sharing later
 - no required account
 - no tracking by default
 - self-hosted collection portals
@@ -319,6 +407,7 @@ The tool should eventually support:
 - inspectable source code
 - clear deletion and refusal paths
 - simple visualizations of shared answers
+- a single-file `omi---imo.html` surface that anyone can download and run locally
 
 The technical goal is not to prove metaphysics.
 
@@ -377,7 +466,7 @@ The commons remembers only what was freely given.
 One-line call:
 
 ```text
-Help build God Is Word as a self-hosted, privacy-first, consent-first mirror for one of humanity’s oldest questions before the next generation of meaning systems is enclosed by private platforms.
+Help build God Is Word as a self-hosted, privacy-first, consent-first omi---imo mirror for one of humanity’s oldest questions before the next generation of meaning systems is enclosed by private platforms.
 ```
 
 ---
