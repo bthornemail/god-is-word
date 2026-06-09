@@ -1,172 +1,397 @@
-# Have You Ever Wondered About God?
+# God Is Word
 
-## Just a Question
+## A Personal Invitation to Ask the Question Before It Is Owned
 
-I'm genuinely asking.
+This project began with a question:
 
-Not trying to convince you of anything. Not selling a belief. Just curious if you've ever stopped and actually thought about it—really thought about it.
+> **God is _____?**
 
-## Some Questions I Have
+Not as a doctrine.
+Not as a conversion attempt.
+Not as a debate.
+Not as a data-harvesting campaign.
 
-**Have you ever wondered what God is?**  
-Not what you were told. Not what you're supposed to think. What do *you* actually think when you hear that word?
+As a question.
 
-**Would you want to know what everyone else thinks?**  
-Like, actually know. Not filtered through media or institutions or arguments. Just... what does a person in Japan think? What about someone in Brazil? Your neighbor? A stranger on the other side of the world?
+A simple, honest, human question.
 
-**If you could ask the question and get an honest answer—would you ask it?**
+What does that word mean to you?
+What happens when different people answer honestly?
+What can we learn when the answer is not forced, ranked, sold, or captured?
 
-**If someone asked you, would you answer honestly?**  
-Even if your answer was "I don't know" or "nothing" or "I've never thought about it"—would you share that?
+This repository is my personal approach to that question.
 
-## What I Can't Figure Out
+It is separate from the broader canonical OMI protocol work, but it comes from the same concern: the next generation of digital systems will define more and more of the boundary between human life, analog environments, machines, meaning, and memory.
 
-Yesterday I asked on Facebook: "What do people who don't believe in God think *about* God?"
+If regular people do not help define those boundaries first, they will be defined for us.
 
-Because here's what confuses me—if you don't believe in something, do you still think about it? And if you do think about it, what are you thinking *about*?
+By platforms.
+By corporations.
+By millionaires.
+By private clouds.
+By systems that turn meaning into revenue before people understand what has been taken.
 
-Like, I genuinely can't fathom the concept. Not in a judgmental way. In a "I don't understand how that works" way.
+I do not want this question, or the framework around it, to become one more private enclosure.
 
-Because even "God doesn't exist" is still an answer to "what is God?"  
-Even "I don't believe" is still a relationship to the concept.  
-Even "I've never thought about it" tells me something.
+I do not want to possess it alone.
 
-## The Bigger Questions
+This is too powerful for one person.
+Including me.
 
-**What do you think God means?**  
-Anything? Nothing? Something you can't put into words?
+---
 
-**Does God have meaning?**  
-Or is meaning something we made up?
+# The Core Personal Claim
 
-**If God doesn't have meaning, then what does?**  
-You? Me? Love? Money? Nothing? Everything?
+We do not need to declare final truth in order to build something meaningful.
 
-**Does meaning even exist?**
+We can declare boundaries.
+We can define constraints.
+We can ask honest questions.
+We can accept only what people choose to share.
+We can preserve consent.
+We can make the process inspectable.
 
-And if it doesn't—why are we asking these questions?  
-And if it does—where does it come from?
+In this project, the answer is not the product.
 
-## What If We Just Asked?
+The question is the opening.
 
-Not as a debate. Not as research. Not to prove anything.
+The boundary is the protection.
 
-Just as a genuine, honest, collective moment of curiosity:
+The receipt is the record of what was willingly offered.
 
-**What if everyone on Earth, at the same time, was asked one simple question?**
+Short doctrine:
 
-> "God is _____?"
+```text
+We do not declare truth.
+We ask the question.
+We define the boundary.
+We preserve consent.
+We accept only what is given.
+```
 
-One word. That's it.
+---
 
-What would happen?
+# Why “God Is Word”
 
-Would patterns emerge?  
-Would we see something we've never seen before?  
-Would we learn something about ourselves by seeing what we all think?
+The phrase **God is Word** is not used here to force a belief.
 
-## Why I Made This
+It points to a structure:
 
-I created a tool—a simple app—because I wanted to know the answer.
+```text
+word
+meaning
+reference
+identity
+relation
+question
+answer
+```
 
-Not *the* answer, like some universal truth handed down from the sky.  
-But *an* answer. The collective answer. The natural image of what humanity actually thinks when we're all honest at the same time.
+A word can be empty to one person and sacred to another.
 
-**7 days. 1 word per day. Everyone participates.**
+A word can be rejected and still shape the rejection.
 
-No pressure. No judgment. No "right answer."
+A word can be unknown and still invite thought.
 
-Just you, at the end of your day, answering honestly:
+The question **“God is _____?”** does not require agreement about God.
 
-- Day 1: God is _____?
-- Day 2: God is _____?
-- ...
-- Day 7: God is _____?
+It asks what the word opens in each person.
 
-Then we look at all the answers together. Not to judge them. But to *see* them.
+That means every honest answer matters:
 
-## What This Isn't
+```text
+God is love.
+God is nothing.
+God is unknown.
+God is fake.
+God is everything.
+God is word.
+God is silence.
+God is I don't know.
+```
 
-This isn't:
-- A religious movement
-- A way to convert anyone
-- Research for a paper or book
-- A data collection scheme
-- Something you have to believe in to participate
+The goal is not to flatten these answers into one official result.
 
-You can think God is real.  
-You can think God is fake.  
-You can think God is a word that doesn't mean anything.  
-You can think you don't know what you think.
+The goal is to see the living field of meaning without forcing it into a single authority.
 
-**All of those are valid answers.**
+---
 
-## What This Could Be
+# The 7-Day God Mirror
+
+The first tool is simple:
+
+```text
+7 days.
+1 word per day.
+One question:
+God is _____?
+```
+
+Each day, a person may answer privately.
+
+They may keep the answer only on their own device.
+
+They may choose to share it.
+
+They may refuse.
+
+They may answer “I don’t know.”
+
+They may stop.
+
+The point is not compliance.
+
+The point is honest participation under consent.
+
+---
+
+# What This Is
+
+This is:
+
+- a personal inquiry
+- a mirror
+- a privacy-first tool
+- a consent-first experiment
+- a question about meaning
+- a way to see patterns without forcing belief
+- a request for collaboration
+- a public attempt to keep this idea open before it is enclosed
+
+This can become software.
+
+It can become a ritual.
+
+It can become a classroom exercise.
+
+It can become a local community mirror.
+
+It can become a self-hosted site.
+
+It can become an open protocol for collective meaning without central ownership.
+
+---
+
+# What This Is Not
+
+This is not:
+
+- a church
+- a cult
+- a conversion funnel
+- a finished doctrine
+- a claim to know the final answer
+- a data collection scheme
+- a surveillance tool
+- a platform for selling belief
+- a way to rank people by faith or disbelief
+- a private ownership claim over a shared question
+
+You do not have to believe in God to participate.
+
+You do not have to disbelieve in God to participate.
+
+You do not have to know what you think.
+
+You only have to answer honestly if you choose to answer at all.
+
+---
+
+# Why This Matters Now
+
+The digital boundary around human meaning is expanding.
+
+AI systems, social platforms, sensors, algorithms, immersive worlds, robotics, and data markets are increasingly able to capture not only what people do, but what people mean.
+
+The deepest danger is not only that our answers will be collected.
+
+It is that the boundaries of the question will be owned before regular people can define them.
+
+A corporation can ask a sacred question and turn it into a targeting profile.
+
+A platform can ask a human question and turn it into engagement.
+
+A wealthy institution can fund the mirror and own the frame.
+
+This project is a refusal of that enclosure.
+
+The question should remain open.
+
+The process should remain inspectable.
+
+Participation should remain voluntary.
+
+Meaning should not be extracted from people without consent.
+
+---
+
+# The Personal Boundary
+
+My personal approach is this:
+
+```text
+Do not capture belief.
+Do not sell the answer.
+Do not force the frame.
+Do not confuse participation with consent to be owned.
+Do not let the question become a product before it becomes a commons.
+```
+
+The tool should be local-first where possible.
+
+Sharing should be optional.
+
+Aggregation should be transparent.
+
+No answer should be treated as more valid because it is more profitable.
+
+No person should be reduced to their word.
+
+No word should become a cage.
+
+---
+
+# A Request for Collaboration
+
+This project needs more than code.
+
+It needs people.
+
+It needs:
+
+```text
+time
+care
+language
+design
+critique
+code
+hosting
+translation
+accessibility
+security review
+community testing
+ethical review
+spiritual humility
+technical honesty
+```
+
+You can help by:
+
+- improving the wording
+- building the local-first app
+- reviewing privacy boundaries
+- designing the self-hosted sharing flow
+- writing documentation
+- translating the question
+- testing the 7-day mirror
+- making the interface more humane
+- challenging assumptions
+- keeping the project from becoming extractive
+
+You do not need to agree with me.
+
+You do not need to share my beliefs.
+
+You only need to respect the boundary:
+
+```text
+Ask freely.
+Answer freely.
+Share only by choice.
+Do not own what belongs to everyone.
+```
+
+---
+
+# Possible Technical Direction
+
+The tool should eventually support:
+
+- local-only answers by default
+- optional export
+- optional cryptographic signing
+- optional anonymous or pseudonymous sharing
+- no required account
+- no tracking by default
+- self-hosted collection portals
+- transparent aggregation
+- inspectable source code
+- clear deletion and refusal paths
+- simple visualizations of shared answers
+
+The technical goal is not to prove metaphysics.
+
+The technical goal is to protect the boundary around a human answer.
+
+---
+
+# The Mirror
+
+When many people answer the same question honestly, a mirror appears.
+
+Not a final answer.
+
+Not a universal doctrine.
 
 A mirror.
 
-When billions of people answer the same question honestly, we see something we can't see alone.
+Maybe the mirror shows shared meaning.
 
-Maybe we see that most people think about God the same way.  
-Maybe we see that everyone thinks about it completely differently.  
-Maybe we see patterns we didn't expect.  
-Maybe we see nothing at all.
+Maybe it shows disagreement.
 
-**But at least we'd know.**
+Maybe it shows confusion.
 
-And knowing what we all actually think—not what we're told we think, not what we argue about, not what divides us—but what we *honestly* think?
+Maybe it shows silence.
 
-That feels important.
+Maybe it shows that the question itself matters more than the answer.
 
-Or maybe it doesn't. I don't know. That's why I'm asking.
-
-## Would You Participate?
-
-If this existed—if you could answer one word per day for 7 days, completely privately, and then see what everyone else answered (if they chose to share)—would you do it?
-
-Would you be curious?
-
-Would you want to know what your answer is?  
-Would you want to know what everyone else's answer is?
-
-**Would you ask the question if you could have the answer?**
-
-## The Tool Exists
-
-I built it because I needed to know. Not because I have answers. Because I have questions.
-
-It's called **The 7-Day God Mirror**.
-
-- Privacy-first (stored only on your device)
-- One word per day for 7 days
-- Optional sharing via cryptographic signature
-- See patterns emerge when others share their answers
-- No tracking, no accounts, no strings attached
-
-You can use it alone, just for yourself.  
-Or you can share your answers and see the collective pattern.
-
-**It's a question, not a statement.**
-
-## Final Thought
-
-I don't know if finding the answer is important.
-
-But I think *asking the question* might be.
-
-Because whether God exists or not, whether meaning exists or not, whether any of this matters or not—we're still here, asking.
-
-And maybe that's the answer already.  
-Or maybe it's not.  
-
-**But I'd like to know what you think.**
+But at least the mirror should belong to the people who stand before it.
 
 ---
 
-### If You're Curious
-👉 Try it: [The 7-Day God Mirror](#)  
-💬 Or just tell me: What do you think about God?
+# Final Thought
+
+I am not trying to own this question.
+
+I am trying to open it before it is owned.
+
+I am not trying to declare truth.
+
+I am trying to protect the boundary where honest meaning can be offered.
+
+I am not asking people to believe what I believe.
+
+I am asking whether we can build a space where people can answer honestly without being captured.
+
+Final doctrine:
+
+```text
+The question opens.
+The person answers.
+The boundary protects.
+The mirror reflects.
+The commons remembers only what was freely given.
+```
+
+One-line call:
+
+```text
+Help build God Is Word as a self-hosted, privacy-first, consent-first mirror for one of humanity’s oldest questions before the next generation of meaning systems is enclosed by private platforms.
+```
 
 ---
 
-*No pressure. No judgment. Just curiosity.*
+## If You Are Curious
+
+Try the question yourself:
+
+> **God is _____?**
+
+One word.
+
+No pressure.
+
+No judgment.
+
+Only honesty.
